@@ -1,0 +1,12 @@
+
+VPLPluPlusCore
+VPLPluPlusCore.Exceptions
+VPLPluPlusCore.annotations
+VPLPluPlusCore.cli
+VPLPluPlusCore.factories.parser
+VPLPluPlusCore.factories.runner
+VPLPluPlusCore.interfaces
+VPLPluPlusCore.models
+VPLPluPlusCore.parsers
+VPLPluPlusCore.runners
+VPLPluPlusCore.utils
