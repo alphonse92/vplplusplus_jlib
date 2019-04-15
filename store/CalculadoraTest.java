@@ -51,7 +51,9 @@ public class CalculadoraTest{
           successMessage = "Usted sabe sumar dos números en Java",
           successReferenceLink = "https://www.google.com.co/search?q=como+sumar+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java",
           failureMessage = "Usted no sabe sumar dos números en Java",
-          failureReferenceLink = "https://www.google.com.co/search?q=como+sumar+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java"
+          failureReferenceLink = "https://www.google.com.co/search?q=como+sumar+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java",
+          loopsDeep = "1",
+          ifDeep = "1",
   )
   @Test(timeout = Configurator.TIMEOUT_VERY_LONG)
   public void testSumar(){
