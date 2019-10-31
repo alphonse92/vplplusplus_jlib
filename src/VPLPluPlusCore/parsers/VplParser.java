@@ -19,17 +19,17 @@ public class VplParser implements IVplParser {
   /**
    * This method parse class to VplTest Class and return it instance
    *
-   * @param classesFromExecutionFiles is an array of Classes, those clases are loaded
-   * from urls in each execution file
+   * @param classesFromExecutionFiles is an array of Classes, those clases are
+   * loaded from urls in each execution file
    * @return HashMap indexed by method id to test, VplTestMethodDescriptor as
    * value for each key
    * @throws VplTestException if exist two methods with same id
    */
   @Override
   public ArrayList<VplTest> parse(ArrayList<Class> classesFromExecutionFiles) throws VplTestException {
-    
+
     ArrayList<VplTest> ArrayOfVplTests = new ArrayList();
-    
+
     for (Class classLoadedFromExecutionFile : classesFromExecutionFiles) {
       // if the classLoadedFromExecution file is a vpl test
       if (isTheClassAVplTest(classLoadedFromExecutionFile)) {
@@ -37,7 +37,8 @@ public class VplParser implements IVplParser {
         VplTest vplTestInfo = VplTest.create(classLoadedFromExecutionFile);
         //Get the methods and iterate on it
         for (Method method : classLoadedFromExecutionFile.getDeclaredMethods()) {
-          // if the method has a @test tag annotation, add to the test methods descriptors
+          // if the method has a @test tag annotation
+          // add to the test methods descriptors
           if (method.isAnnotationPresent(org.junit.Test.class)) {
             vplTestInfo.addTestMethodDescriptor(new VplTestMethodDescriptor(method));
           }
@@ -51,15 +52,18 @@ public class VplParser implements IVplParser {
   }
 
   /**
-   * This method validate if a class have VplPlusPlus annotation and validate if it
-   * is enable
+   * Validate if the class has the VplPlusPlusAnnotation annotation and if it is
+   * enable
    *
-   * @param _class_
-   * @return
+   * @param classLoadedFromExecutionFile
+   * @return true if the class is a VPL test
    */
-  private boolean isTheClassAVplTest(Class _class_) {
-    return _class_.isAnnotationPresent(VplPlusPlusAnnotation.class)
-            && ((VplPlusPlusAnnotation) _class_.getAnnotation(VplPlusPlusAnnotation.class)).enabled();
+  private boolean isTheClassAVplTest(Class classLoadedFromExecutionFile) {
+    return classLoadedFromExecutionFile
+            .isAnnotationPresent(VplPlusPlusAnnotation.class)
+            && ((VplPlusPlusAnnotation) classLoadedFromExecutionFile
+                    .getAnnotation(VplPlusPlusAnnotation.class))
+                    .enabled();
   }
 
 }
