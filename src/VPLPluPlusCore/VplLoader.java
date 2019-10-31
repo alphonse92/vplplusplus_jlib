@@ -41,7 +41,13 @@ public class VplLoader {
     return this;
   }
 
-  public VplReportSuite run(VplLoaderExecutionsFiles files) throws VplTestException, MalformedURLException, ClassNotFoundException, ClassNotFoundException, URISyntaxException, URISyntaxException {
+  public VplReportSuite run(VplLoaderExecutionsFiles files)
+          throws VplTestException,
+          MalformedURLException,
+          ClassNotFoundException,
+          ClassNotFoundException,
+          URISyntaxException,
+          URISyntaxException {
     return VplRunnerFactory
             // get te current runner
             .getRunner()
