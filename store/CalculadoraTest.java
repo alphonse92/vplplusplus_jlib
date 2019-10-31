@@ -51,9 +51,7 @@ public class CalculadoraTest{
           successMessage = "Usted sabe sumar dos números en Java",
           successReferenceLink = "https://www.google.com.co/search?q=como+sumar+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java",
           failureMessage = "Usted no sabe sumar dos números en Java",
-          failureReferenceLink = "https://www.google.com.co/search?q=como+sumar+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java",
-          loopsDeep = "1",
-          ifDeep = "1",
+          failureReferenceLink = "https://www.google.com.co/search?q=como+sumar+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java"
   )
   @Test(timeout = Configurator.TIMEOUT_VERY_LONG)
   public void testSumar(){
@@ -99,7 +97,8 @@ public class CalculadoraTest{
   )
   @Test(timeout = Configurator.TIMEOUT_VERY_LONG)
   public void testDividir(){
-    assertEquals(0.5, test.dividir(1, 2));
+    double x = test.dividir(2, 2);
+    assertEquals(1,x ,0);
   }
 
   @Test(timeout = Configurator.TIMEOUT_VERY_LONG)
@@ -109,7 +108,7 @@ public class CalculadoraTest{
   
   @Test(timeout = Configurator.TIMEOUT_VERY_LONG)
   public void SingleJUnitMethodThatFails(){
-    assertEquals(200, test.multiplicar(1, 2));
+    assertEquals(2, test.multiplicar(1, 2));
   }
 
 }
