@@ -4,12 +4,12 @@ import VPLPluPlusCore.interfaces.IVplParser;
 import VPLPluPlusCore.parsers.VplParser;
 
 /**
- * A parser is a Class that covert a JUnit test to VPL++ JUnit test, using the
- * VPL++ annotations above each methods in the test.
- *
- * the responsability of a Parser is desacoplate the teacher test, avoid to him
- * to learn VPL++ concepts and rare implementations.
- *
+ * A parser is a class that parse another classes to VPLTest classes, if 
+ * it applied.
+ * 
+ * Not all classes should be converted to VPLTest class, only the classes
+ * that have the VPL test annotations.
+ * 
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  *
  */

@@ -9,6 +9,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
+ * 
+ * This is the Default class parser. This class converts the classes
+ * that have the annotation of vpltest to VPLTest classes
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  */
 public class VplParser implements IVplParser {
@@ -19,10 +22,9 @@ public class VplParser implements IVplParser {
   /**
    * This method parse class to VplTest Class and return it instance
    *
-   * @param classesFromExecutionFiles is an array of Classes, those clases are
+   * @param classesFromExecutionFiles is an array of Classes, those classes are
    * loaded from urls in each execution file
-   * @return HashMap indexed by method id to test, VplTestMethodDescriptor as
-   * value for each key
+   * @return Array of VplTest class
    * @throws VplTestException if exist two methods with same id
    */
   @Override

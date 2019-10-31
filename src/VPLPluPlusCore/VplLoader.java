@@ -55,10 +55,11 @@ public class VplLoader {
             .run(
                     // Get the parser
                     VplParserFactory
+                            // the parser converts the classes to 
+                            // VplTestClasses
                             .getParser()
-                            .parse(
-                                    files.loadClasses()
-                            )
+                            // parse all the classes loaded to VPL test classes
+                            .parse(files.loadClasses())
             );
   }
 

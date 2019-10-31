@@ -17,6 +17,9 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
 /**
+ * This class is a IVplRunner implementation. This is responsible to run the
+ * tests cases of each test. A test case is a method of a test class VplTest has
+ * methods, those methods are test cases.
  *
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  */
@@ -30,8 +33,9 @@ public class VplJRunner implements IVplRunner {
   }
 
   public void run(Class... classes) {
-
+    // run before
     before();
+    // run after
     after();
   }
 
@@ -75,32 +79,53 @@ public class VplJRunner implements IVplRunner {
     System.out.println("Grade :=>> " + this.grade);
   }
 
+  /**
+   * This method runs all the VplTests using JUnit. JUnit will returns a report
+   *
+   * @param vplTests
+   * @return
+   */
   @Override
-  public VplReportSuite run(ArrayList<VplTest> tests) {
-    /*
-     Documentation
-      Result       =    JUnitCore.runClasses(_class_)  ->   https://junit.org/junit4/javadoc/4.12/org/junit/runner/Result.html
-      Failure      =    Result.getFailures():Failure   ->   https://junit.org/junit4/javadoc/4.12/org/junit/runner/notification/Failure.html
-      Description  =    Failure.getMethodName()        ->   https://junit.org/junit4/javadoc/4.12/org/junit/runner/Description.html
+  public VplReportSuite run(ArrayList<VplTest> vplTests) {
+    /**
+     *
+     * Result = JUnitCore.runClasses(_class_) ->
+     * https://junit.org/junit4/javadoc/4.12/org/junit/runner/Result.html
+     * Failure = Result.getFailures():Failure ->
+     * https://junit.org/junit4/javadoc/4.12/org/junit/runner/notification/Failure.html
+     * Description = Failure.getMethodName() ->
+     * https://junit.org/junit4/javadoc/4.12/org/junit/runner/Description.html
      */
+
+    // create a VPLReportSuite instance
     VplReportSuite suite = new VplReportSuite();
-    for (VplTest test : tests) {
-      System.out.println("Running " + test.getName() + "test");
-      //uses junit for run junit class normally
-      Result JUnitTestResult = JUnitCore.runClasses(test.getVplTestClass());
-      //creates a single report for test
-      VplReport singleTestReport = new VplReport(test);
-      //add failures to test
+
+    // Take each test fo VplTests
+    for (VplTest singleVplTestFromArray : vplTests) {
+      System.out.println("Running " + singleVplTestFromArray.getName() + "test");
+
+      // Use JUnit to run test the class normally
+      Result JUnitTestResult = JUnitCore.runClasses(singleVplTestFromArray.getVplTestClass());
+
+      // Create the report for the vplTest
+      VplReport singleTestReport = new VplReport(singleVplTestFromArray);
+
+      // Get failures, those failures are returned by JUnit
       List<Failure> fails = JUnitTestResult.getFailures();
-      System.out.println(" |... Has " + fails.size() + " errors");
-      for (Failure failure : fails) {
-        //automatically VplTest downgrade the grade
-        Description desc = failure.getDescription();
-        String methodName = desc.getMethodName();
-        System.out.println("   |... The method " + methodName + " failed");
-        singleTestReport.addFailure(methodName);
+
+      if (fails.size() > 0) {
+        System.out.println(" |..." + fails.size() + " Tests was not passed");
+        for (Failure failure : fails) {
+          //automatically VplTest downgrade the grade
+          Description desc = failure.getDescription();
+          String methodName = desc.getMethodName();
+          System.out.println("   |... The method " + methodName + " failed");
+          singleTestReport.addFailure(methodName);
+        }
       }
+      
       //add report to suite
+      
       suite.addReport(singleTestReport);
     }
 
