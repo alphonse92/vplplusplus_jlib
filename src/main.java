@@ -66,7 +66,6 @@ public class main {
       if (files != null) {
         VplLoader.getInstance().run(files);
       }
-
     } catch (VplTestException ex) {
       Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
     } catch (ParseException ex) {
