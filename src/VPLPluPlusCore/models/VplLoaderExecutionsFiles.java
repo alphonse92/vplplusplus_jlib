@@ -18,11 +18,12 @@ public class VplLoaderExecutionsFiles {
   }
 
   public ArrayList<Class> loadClasses() throws MalformedURLException {
-    ArrayList<Class> out = new ArrayList();
+    ArrayList<Class> arrayOfClasses = new ArrayList();
     for (ExecutionFile executionFile : executionFiles) {
-      out.addAll(executionFile.getExecutionFilesClasses());
+      // Load classes from execution files
+      arrayOfClasses.addAll(executionFile.getExecutionFilesClasses());
     }
-    return out;
+    return arrayOfClasses;
   }
 
 }
