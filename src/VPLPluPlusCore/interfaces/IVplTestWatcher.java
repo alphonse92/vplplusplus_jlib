@@ -9,7 +9,7 @@ package VPLPluPlusCore.interfaces;
  *
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  */
-public interface IVplTestWatcher{
+public interface IVplTestWatcher {
 
   public void watch();
 }

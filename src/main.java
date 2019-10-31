@@ -58,24 +58,26 @@ import org.apache.commons.cli.ParseException;
  */
 public class main {
 
-    public static void main(String[] args) {
-        try {
+  public static void main(String[] args) {
+    try {
 
-            System.out.println("Running VPL Runner from " + Files.EXECUTION_PATH);
-            VplLoaderExecutionsFiles files = new VplCli(args).parse();
-            if(files != null) VplLoader.getInstance().run(files);
-            
-        } catch (VplTestException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      System.out.println("Running VPL Runner from " + Files.EXECUTION_PATH);
+      VplLoaderExecutionsFiles files = new VplCli(args).parse();
+      if (files != null) {
+        VplLoader.getInstance().run(files);
+      }
+
+    } catch (VplTestException ex) {
+      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (ParseException ex) {
+      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (MalformedURLException ex) {
+      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (ClassNotFoundException ex) {
+      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (URISyntaxException ex) {
+      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
     }
+  }
 
 }

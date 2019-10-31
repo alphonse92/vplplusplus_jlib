@@ -8,18 +8,18 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 
-public class VplLoaderExecutionsFiles{
+public class VplLoaderExecutionsFiles {
 
   private ExecutionFile[] executionFiles = null;
   private String[] plugins = null;
 
-  public VplLoaderExecutionsFiles(ExecutionFile[] executionFiles, String[] plugins){
+  public VplLoaderExecutionsFiles(ExecutionFile[] executionFiles, String[] plugins) {
     this.executionFiles = executionFiles;
   }
 
-  public ArrayList<Class> loadClasses() throws MalformedURLException{
+  public ArrayList<Class> loadClasses() throws MalformedURLException {
     ArrayList<Class> out = new ArrayList();
-    for(ExecutionFile ef:executionFiles){
+    for (ExecutionFile ef : executionFiles) {
       out.addAll(ef.getExecutionFilesClasses());
     }
     return out;

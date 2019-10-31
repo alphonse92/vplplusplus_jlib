@@ -3,45 +3,54 @@ package VPLPluPlusCore.annotations;
 import java.lang.annotation.Annotation;
 import java.sql.Timestamp;
 
-public class DefaultAnnotation implements VplTestDescriptorMethodAnnotation{
+public class DefaultAnnotation implements VplTestDescriptorMethodAnnotation {
 
   private String name = new Timestamp(System.currentTimeMillis()).toString(); //default value
-  public DefaultAnnotation(){
+
+  public DefaultAnnotation() {
   }
-  public DefaultAnnotation(String name){
+
+  public DefaultAnnotation(String name) {
     this.name = name;
   }
 
   @Override
-  public String name(){
+  public String name() {
     return this.name;
   }
+
   @Override
-  public String objective(){
+  public String objective() {
     return "Undefined Objective";
   }
+
   @Override
-  public int grade(){
+  public int grade() {
     return 0;
   }
+
   @Override
-  public String successMessage(){
+  public String successMessage() {
     return "JUnit method test success";
   }
+
   @Override
-  public String failureMessage(){
+  public String failureMessage() {
     return "JUnit method test fail";
   }
+
   @Override
-  public String successReferenceLink(){
+  public String successReferenceLink() {
     return "";
   }
+
   @Override
-  public String failureReferenceLink(){
+  public String failureReferenceLink() {
     return "";
   }
+
   @Override
-  public Class<? extends Annotation> annotationType(){
+  public Class<? extends Annotation> annotationType() {
     return VplTestDescriptorMethodAnnotation.class;
   }
 }

@@ -7,14 +7,19 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface VplTestDescriptorMethodAnnotation{
+public @interface VplTestDescriptorMethodAnnotation {
+
   String name();
+
   String objective();
+
   int grade();
+
   String successMessage() default "";
+
   String failureMessage() default "";
+
   String successReferenceLink() default "";
+
   String failureReferenceLink() default "";
 }
-
-

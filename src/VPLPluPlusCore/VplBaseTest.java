@@ -11,11 +11,11 @@ import org.junit.BeforeClass;
  *
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  */
-public class VplBaseTest{
+public class VplBaseTest {
+
   protected Class studentTestClass = null;
-  
-  public void initVplTest()
-  {
+
+  public void initVplTest() {
     // VplLoader.getInstance().
   }
 }

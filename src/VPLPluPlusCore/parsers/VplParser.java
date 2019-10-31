@@ -11,9 +11,9 @@ import java.util.ArrayList;
 /**
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  */
-public class VplParser implements IVplParser{
+public class VplParser implements IVplParser {
 
-  public VplParser(){
+  public VplParser() {
   }
 
   /**
@@ -25,17 +25,17 @@ public class VplParser implements IVplParser{
    * @throws VplTestException if exist two methods with same id
    */
   @Override
-  public ArrayList<VplTest> parse(ArrayList<Class> classes) throws VplTestException{
+  public ArrayList<VplTest> parse(ArrayList<Class> classes) throws VplTestException {
     ArrayList<VplTest> tests = new ArrayList();
-    for(Class _class_:classes){
+    for (Class _class_ : classes) {
       //valide if the class is a valid VPLTest Class
-      if(isVplTest(_class_)){
+      if (isVplTest(_class_)) {
         //instantiate the container
         VplTest vplTestInfo = VplTest.create(_class_);
         //iterate over class methods
-        for(Method method:_class_.getDeclaredMethods()){
+        for (Method method : _class_.getDeclaredMethods()) {
           //if the current method has a JUnit Test annotation 
-          if(method.isAnnotationPresent(org.junit.Test.class)){
+          if (method.isAnnotationPresent(org.junit.Test.class)) {
             vplTestInfo.addTestMethodDescriptor(new VplTestMethodDescriptor(method));
           }
         }
@@ -53,9 +53,9 @@ public class VplParser implements IVplParser{
    * @param _class_
    * @return
    */
-  public boolean isVplTest(Class _class_){
+  public boolean isVplTest(Class _class_) {
     return _class_.isAnnotationPresent(VplPlusPlusAnnotation.class)
-            && ((VplPlusPlusAnnotation)_class_.getAnnotation(VplPlusPlusAnnotation.class)).enabled();
+            && ((VplPlusPlusAnnotation) _class_.getAnnotation(VplPlusPlusAnnotation.class)).enabled();
   }
 
 }

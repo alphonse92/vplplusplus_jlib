@@ -9,6 +9,6 @@ package VPLPluPlusCore.interfaces;
  *
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  */
-public interface StateCycleLife{
-  
+public interface StateCycleLife {
+
 }

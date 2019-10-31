@@ -20,30 +20,30 @@ import org.junit.runner.notification.Failure;
  *
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  */
-public class VplJRunner implements IVplRunner{
+public class VplJRunner implements IVplRunner {
 
   protected long start_time = 0;
   protected long end_time = 0;
   protected int grade = 0;
 
-  public VplJRunner(){
+  public VplJRunner() {
   }
 
-  public void run(Class... classes){
+  public void run(Class... classes) {
 
     before();
     after();
   }
 
-  private ArrayList orderByPriority(){
+  private ArrayList orderByPriority() {
     return null;
   }
 
-  private void before(){
+  private void before() {
     this.start_time = System.nanoTime();
   }
 
-  private void after(){
+  private void after() {
     //get final execution time
     this.end_time = System.nanoTime();
     //print results
@@ -55,28 +55,28 @@ public class VplJRunner implements IVplRunner{
     this.grade = 0;
   }
 
-  protected void gradeOrFailure(String testName, int grade, AssertionError e){
+  protected void gradeOrFailure(String testName, int grade, AssertionError e) {
     String comment = e == null ? (testName + " Total: " + grade) : e.getMessage();
     comment(e == null, comment);
     this.addGrade(grade);
   }
 
-  protected void comment(boolean isFailure, String comentario){
+  protected void comment(boolean isFailure, String comentario) {
     String out = "Comment :=>> ";
     out += (isFailure ? "[SUCCESS] " : "[FAIL] ") + comentario;
     System.out.println(out);
   }
 
-  private void addGrade(int grade){
+  private void addGrade(int grade) {
     this.grade += grade;
   }
 
-  private void grade(String grade){
+  private void grade(String grade) {
     System.out.println("Grade :=>> " + this.grade);
   }
 
   @Override
-  public VplReportSuite run(ArrayList<VplTest> tests){
+  public VplReportSuite run(ArrayList<VplTest> tests) {
     /*
      Documentation
       Result       =    JUnitCore.runClasses(_class_)  ->   https://junit.org/junit4/javadoc/4.12/org/junit/runner/Result.html
@@ -84,7 +84,7 @@ public class VplJRunner implements IVplRunner{
       Description  =    Failure.getMethodName()        ->   https://junit.org/junit4/javadoc/4.12/org/junit/runner/Description.html
      */
     VplReportSuite suite = new VplReportSuite();
-    for(VplTest test:tests){
+    for (VplTest test : tests) {
       System.out.println("Running " + test.getName() + "test");
       //uses junit for run junit class normally
       Result JUnitTestResult = JUnitCore.runClasses(test.getVplTestClass());
@@ -93,7 +93,7 @@ public class VplJRunner implements IVplRunner{
       //add failures to test
       List<Failure> fails = JUnitTestResult.getFailures();
       System.out.println(" |... Has " + fails.size() + " errors");
-      for(Failure failure:fails){
+      for (Failure failure : fails) {
         //automatically VplTest downgrade the grade
         Description desc = failure.getDescription();
         String methodName = desc.getMethodName();

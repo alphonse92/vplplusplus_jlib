@@ -17,10 +17,11 @@ import java.net.URISyntaxException;
  *
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  */
-public class VplLoader{
+public class VplLoader {
 
   private static VplLoader instance = null;
-  private VplLoader(){
+
+  private VplLoader() {
   }
 
   /**
@@ -28,19 +29,19 @@ public class VplLoader{
    *
    * @return VplLoader's Instance
    */
-  public static VplLoader getInstance(){
-    if(VplLoader.instance == null){
+  public static VplLoader getInstance() {
+    if (VplLoader.instance == null) {
       VplLoader.instance = new VplLoader();
     }
 
     return VplLoader.instance;
   }
 
-  public VplLoader require(String pathToClass){
+  public VplLoader require(String pathToClass) {
     return this;
   }
 
-  public VplReportSuite run(VplLoaderExecutionsFiles files) throws VplTestException, MalformedURLException, ClassNotFoundException, ClassNotFoundException, URISyntaxException, URISyntaxException{
+  public VplReportSuite run(VplLoaderExecutionsFiles files) throws VplTestException, MalformedURLException, ClassNotFoundException, ClassNotFoundException, URISyntaxException, URISyntaxException {
     return VplRunnerFactory
             .getRunner()
             .run(VplParserFactory.getParser().parse(files.loadClasses()));

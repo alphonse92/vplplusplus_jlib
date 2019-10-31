@@ -9,9 +9,9 @@ package VPLPluPlusCore.Exceptions;
  *
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  */
-public class VplTestException extends Exception{
+public class VplTestException extends Exception {
 
-  public VplTestException(String message){
+  public VplTestException(String message) {
     super(message);
   }
 

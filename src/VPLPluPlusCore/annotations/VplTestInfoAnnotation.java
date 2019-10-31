@@ -7,10 +7,15 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE) //on class level
-public @interface VplTestInfoAnnotation{
+public @interface VplTestInfoAnnotation {
+
   String name() default "";
+
   String[] tags();
+
   String created_by();
+
   String objetive();
+
   int maxGrade();
 }

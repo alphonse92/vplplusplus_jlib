@@ -13,6 +13,7 @@ import java.util.ArrayList;
  *
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  */
-public interface IVplParser{
+public interface IVplParser {
+
   public ArrayList<VplTest> parse(ArrayList<Class> classes) throws VplTestException;
 }

@@ -9,7 +9,7 @@ package VPLPluPlusCore;
  *
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  */
-public class Configurator{
+public class Configurator {
 
   public static final int TIMEOUT_SHORT = 50;
   public static final int TIMEOUT_MEDIUM = 100;

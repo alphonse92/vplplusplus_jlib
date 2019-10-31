@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  */
-public interface IVplRunner extends StateCycleLife{
+public interface IVplRunner extends StateCycleLife {
 
   public VplReportSuite run(ArrayList<VplTest> tests);
 }
