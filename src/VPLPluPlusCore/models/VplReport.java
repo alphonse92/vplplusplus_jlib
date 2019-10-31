@@ -20,15 +20,22 @@ public class VplReport {
   }
 
   public double getGrade() {
-    
-    int totalOfTests = this.vplTest.getTestDescriptorsSize();
-    int failures = this.vplTest.getNotApprove();
-    
-    if(failures == 0) return 100;
-    if(failures == totalOfTests ) return 0;
-    
-    return (failures/totalOfTests) *100 ;
-    
+
+    double totalOfTests = this.vplTest.getTestDescriptorsSize();
+    double approved = this.vplTest.getApproved();
+
+    System.out.println("total of tests " + String.valueOf(totalOfTests) + " failures " + String.valueOf(approved));
+    if (approved == 0) {
+      return 100;
+    }
+    if (approved == totalOfTests) {
+      return 0;
+    }
+   
+    double percentage = (approved / totalOfTests) * 100;
+
+    return percentage;
+
   }
 
 }

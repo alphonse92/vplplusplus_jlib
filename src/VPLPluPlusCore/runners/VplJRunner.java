@@ -31,7 +31,7 @@ public class VplJRunner implements IVplRunner {
 
   public VplJRunner() {
   }
-  
+
   /**
    * This method runs all the VplTests using JUnit. JUnit will returns a report
    *
@@ -63,13 +63,13 @@ public class VplJRunner implements IVplRunner {
               + vplTest.getName()
               + "test"
       );
-      
+
       // Use JUnit to run test the class normally
       Result JUnitTestResult = JUnitCore
               .runClasses(vplTest.getVplTestClass());
 
       // Create the report for the vplTest
-      VplReport singleTestReport = new VplReport(vplTest);    
+      VplReport singleTestReport = new VplReport(vplTest);
       // Get failures, those failures are returned by JUnit
       List<Failure> fails = JUnitTestResult.getFailures();
 
@@ -78,69 +78,59 @@ public class VplJRunner implements IVplRunner {
         System.out.println("    |..." + fails.size() + " Tests was not passed");
 
         for (Failure failure : fails) {
-          
+
           //automatically VplTest downgrade the grade
           Description jUnitTestDescription = failure.getDescription();
           String method = jUnitTestDescription.getMethodName();
           System.out.println("       |... The method " + method + " failed");
           // setting the failure
           vplTest.setFailure(method);
-          
+
         }
-        
+
       }
-      
+
       //add report to suite
       suite.addReport(singleTestReport);
-      
+
     }
 
-    this.after();
-    
+    this.after(suite);
+
     return suite;
-  }
-
-
-  private ArrayList orderByPriority() {
-    return null;
   }
 
   private void before() {
     this.start_time = System.nanoTime();
   }
 
-  private void after() {
-    
+  private void after(VplReportSuite suite) {
+
     //get final execution time
     this.end_time = System.nanoTime();
     //print results
-    this.comment(false, "Test Was Finish: " + (this.end_time - this.start_time) / 1e6);
-    this.comment(false, "Execution Time: " + (this.end_time - this.start_time) / 1e6 + " Miliseconds");
-    //gradding
-    this.grade(String.valueOf(this.grade));
-    //flush
-    this.grade = 0;
-    
+    this.printTime("Executed in ", (this.end_time - this.start_time)  / 1e6 );
+    // print grade
+    this.printGrade(suite.getGrade());
   }
 
-  protected void gradeOrFailure(String testName, int grade, AssertionError e) {
-    String comment = e == null ? (testName + " Total: " + grade) : e.getMessage();
-    comment(e == null, comment);
-    this.addGrade(grade);
+  private void printTime(String title,double time){
+    String timeStr = String.format("%.2f",time);
+    this.printCommentary(title + timeStr + " Miliseconds");
   }
-
-  protected void comment(boolean isFailure, String comentario) {
-    String out = "Comment :=>> ";
-    out += (isFailure ? "[SUCCESS] " : "[FAIL] ") + comentario;
+  
+  private void printCommentary(String commentary) {
+    boolean isFailure = true;
+    String prefix = isFailure ? "[SUCCESS] " : "[FAIL] ";
+    String out = "Comment :=>> "; // + prefix
+    out += commentary;
     System.out.println(out);
-  }
+  } 
 
-  private void addGrade(int grade) {
-    this.grade += grade;
-  }
-
-  private void grade(String grade) {
-    System.out.println("Grade :=>> " + grade);
+  private void printGrade(double grade) {
+    System.out.print("Grade :=>> ");
+    System.out.printf("%.2f",grade);
+    System.out.println("");
   }
 
 }
