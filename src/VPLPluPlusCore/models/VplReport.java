@@ -19,7 +19,8 @@ public class VplReport {
     this.vplTest = vplTest;
   }
 
-  public int getGrade() {
+  public double getGrade() {
+    
     int totalOfTests = this.vplTest.getTestDescriptorsSize();
     int failures = this.vplTest.getNotApprove();
     

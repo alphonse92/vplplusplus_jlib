@@ -29,4 +29,13 @@ public class VplReportSuite{
     return this;
   }
   
+  public double getGrade(){
+    
+    int totalOfReports = this.singleReports.size();
+    double totalGrade = 0;
+    for(VplReport testReport:this.singleReports){
+       totalGrade+=testReport.getGrade();
+    }
+    return totalGrade / totalOfReports;
+  }  
 }
