@@ -117,13 +117,15 @@ public class VplJRunner implements IVplRunner {
       List<Failure> fails = JUnitTestResult.getFailures();
 
       if (fails.size() > 0) {
+        
         System.out.println(" |..." + fails.size() + " Tests was not passed");
+        
         for (Failure failure : fails) {
           //automatically VplTest downgrade the grade
-          Description desc = failure.getDescription();
-          String methodName = desc.getMethodName();
-          System.out.println("   |... The method " + methodName + " failed");
-          singleTestReport.addFailure(methodName);
+          Description jUnitTestDescription = failure.getDescription();
+          String method = jUnitTestDescription.getMethodName();
+          System.out.println("   |... The method " + method + " failed");
+          singleTestReport.addFailure(method);
         }
       }
       
