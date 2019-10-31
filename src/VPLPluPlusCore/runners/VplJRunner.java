@@ -56,21 +56,20 @@ public class VplJRunner implements IVplRunner {
     System.out.println(vplTests.size() + " VplTests was found");
 
     // Take each test fo VplTests
-    for (VplTest singleVplTestFromArray : vplTests) {
+    for (VplTest vplTest : vplTests) {
 
       System.out.println(
               "   Running "
-              + singleVplTestFromArray.getName()
+              + vplTest.getName()
               + "test"
       );
-
+      
       // Use JUnit to run test the class normally
       Result JUnitTestResult = JUnitCore
-              .runClasses(singleVplTestFromArray.getVplTestClass());
+              .runClasses(vplTest.getVplTestClass());
 
       // Create the report for the vplTest
-      VplReport singleTestReport = new VplReport(singleVplTestFromArray);
-
+      VplReport singleTestReport = new VplReport(vplTest);    
       // Get failures, those failures are returned by JUnit
       List<Failure> fails = JUnitTestResult.getFailures();
 
@@ -83,11 +82,11 @@ public class VplJRunner implements IVplRunner {
           Description jUnitTestDescription = failure.getDescription();
           String method = jUnitTestDescription.getMethodName();
           System.out.println("       |... The method " + method + " failed");
-          singleTestReport.addFailure(method);
+          // setting the failure
+          vplTest.setFailure(method);
         }
-
       }
-
+      
       //add report to suite
       suite.addReport(singleTestReport);
       

@@ -17,7 +17,7 @@ public class VplTestMethodDescriptor {
 
   private VplTestDescriptorMethodAnnotation annotation;
   private Method method;
-  private boolean success;
+  private boolean success = true;
 
   public VplTestMethodDescriptor(Method method) {
     this.annotation = (VplTestDescriptorMethodAnnotation) method.getAnnotation(VplTestDescriptorMethodAnnotation.class);

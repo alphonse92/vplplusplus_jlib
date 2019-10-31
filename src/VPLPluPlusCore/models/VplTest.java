@@ -7,7 +7,6 @@ package VPLPluPlusCore.models;
 
 import VPLPluPlusCore.Exceptions.VplTestException;
 import VPLPluPlusCore.annotations.VplTestInfoAnnotation;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -16,14 +15,16 @@ import java.util.HashMap;
  */
 public class VplTest {
 
-  private String[] tags;
-  private String created_by;
-  private String objetive;
+  private final String[] tags;
+  private final String created_by;
+  private final String objetive;
   private int maxGrade = 0;
-  private String name;
+  private final String name;
   private double grade;
-  private HashMap<String, VplTestMethodDescriptor> descriptors;
-  private Class vplTestClass;
+  private final HashMap<String, VplTestMethodDescriptor> descriptors;
+  private final Class vplTestClass;
+
+  private int approved = 0;
 
   public VplTest(Class vplTestClass, String name, String[] tags, String created_by, String objetive) {
     this.name = name;
@@ -43,14 +44,21 @@ public class VplTest {
    * Method for add testDescriptor to VplTest
    *
    * @param testDescriptor testDescriptor to save
+   * @throws VPLPluPlusCore.Exceptions.VplTestException
    */
   public void addTestMethodDescriptor(VplTestMethodDescriptor testDescriptor) throws VplTestException {
-    //valide if exist a method with same id
+
+//valide if exist a method with same id
     String methodName = testDescriptor.getMethod().getName();
+
     if (!this.descriptors.containsKey(methodName)) {
+
       //if doesnt exist a method with same id then put it in hashmap
       this.descriptors.put(methodName, testDescriptor);
       this.maxGrade += testDescriptor.getGrade();
+
+      this.setSuccess(methodName);
+
     } else {
       //else throw the exception
       throw new VplTestException("Existen dos tests con el mismo nombre en la clase de prueba");
@@ -91,6 +99,28 @@ public class VplTest {
 
   public void setGrade(double grade) {
     this.grade = grade;
+  }
+
+  public void setSuccess(String method) {
+    this.getMethodDescriptor(method).setSuccess(true);
+    this.approved += 1;
+  }
+
+  public void setFailure(String method) {
+    this.getMethodDescriptor(method).setSuccess(false);
+    this.approved -= 1;
+  }
+
+  public int getApproved() {
+    return this.approved;
+  }
+
+  public int getNotApprove() {
+    return this.getTestDescriptorsSize() - this.approved;
+  }
+
+  public int getTestDescriptorsSize() {
+    return this.descriptors.size();
   }
 
 }
