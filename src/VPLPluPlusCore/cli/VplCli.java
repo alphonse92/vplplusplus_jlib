@@ -46,6 +46,7 @@ public class VplCli {
 
         if (cmd.hasOption("h")) {
             this.help();
+            return null;
         }
 
         ExecutionFile[] executionFilesFromCommandLine = this.getExecutionFiles(cmd.getOptionValues("f"));

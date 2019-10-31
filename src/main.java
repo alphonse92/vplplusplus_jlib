@@ -63,7 +63,7 @@ public class main {
 
             System.out.println("Running VPL Runner from " + Files.EXECUTION_PATH);
             VplLoaderExecutionsFiles files = new VplCli(args).parse();
-            VplLoader.getInstance().run(files);
+            if(files != null) VplLoader.getInstance().run(files);
             
         } catch (VplTestException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
