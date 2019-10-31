@@ -34,6 +34,11 @@ public class ExecutionFile {
     return this.files;
   }
 
+  /**
+   * This method load the classes from execution File.
+   *  
+   * @return @throws MalformedURLException
+   */
   public ArrayList<Class> getExecutionFilesClasses() throws MalformedURLException {
     //default
     if (this.files.length == 0) {
@@ -42,38 +47,58 @@ public class ExecutionFile {
     //init elements
     int nClassFiles = this.files.length;
     String[] classNames = new String[nClassFiles];
-    ArrayList<Class> out = new ArrayList();
+    
 
+    // As standar says, the class should be capitalized, and the filename
+    // should be called as the class name. So, the class
+    // Calculator should exist inside Calculator.java or Calculator.class
+    // so, we cut the file name to get the class name
     for (byte i = 0; i < nClassFiles; i++) {
-      File currentFile = this.files[i];//get the iteration current file isntance
-      String filename = currentFile.getName(); //get the name's file
+      // Get the file
+      File currentFile = this.files[i];
+      // Get the file name of currentFile
+      String filename = currentFile.getName(); 
+      // Get the classname from path /folder/to/The/Calculator.class 
+      // getting the Calculator.class and after cut by dot extension
       String classname = String.join(".", filename
               .split(File.pathSeparator))
               .replace("." + Files.EXTENSION_CLASS, ""); //remove extension from the name's file
+      // the result is the class name. In the example before: Calculator.
+      // and append to the classNAmes array
       classNames[i] = classname;
     }
 
+    // get the current url where is the execution file
     URL url = this.mount.toURI().toURL();
 
     System.out.println("Loading classes from: " + url.toString());
-
+    // Get the class loader
     URLClassLoader currentClassLoader = URLClassLoader.newInstance(new URL[]{url}, ClassLoader.getSystemClassLoader());
-
+    // Declare the out
+    ArrayList<Class> arrayOfClasses = new ArrayList();
+    // start to load each class 
     for (int i = 0; i < nClassFiles; i++) {
+      // get the class name
       String classname = classNames[i];
       try {
         System.out.print("  |..." + classname);
-        out.add(currentClassLoader.loadClass(classname));
+        // try to load the class from the url
+        arrayOfClasses.add(currentClassLoader.loadClass(classname));
+        // print ok if all works fine
         System.out.println(" [Ok]");
       } catch (ClassNotFoundException e) {
+        // if the class was not found, should a message
         System.out.println(" [ Error: " + classname + "  was not found ]: "
                 + "The classes should be named as the file is called."
                 + "For example: the class Calculator should be exist inside the file Calculator.class "
         );
       }
+      // go iterate
     }
 
-    return out;
+    // return an array of loaded classes
     
+    return arrayOfClasses;
+
   }
 }
