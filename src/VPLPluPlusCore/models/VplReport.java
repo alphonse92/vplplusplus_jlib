@@ -24,7 +24,7 @@ public class VplReport {
     double totalOfTests = this.vplTest.getTestDescriptorsSize();
     double approved = this.vplTest.getApproved();
 
-    System.out.println("total of tests " + String.valueOf(totalOfTests) + " failures " + String.valueOf(approved));
+    System.out.println("Total tests: " + String.valueOf(totalOfTests) + " Approved: " + String.valueOf(approved));
     if (approved == 0) {
       return 100;
     }
