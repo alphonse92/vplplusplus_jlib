@@ -87,6 +87,7 @@ public class VplJRunner implements IVplRunner {
    */
   @Override
   public VplReportSuite run(ArrayList<VplTest> vplTests) {
+    
     /**
      *
      * Result = JUnitCore.runClasses(_class_) ->
@@ -100,6 +101,8 @@ public class VplJRunner implements IVplRunner {
     // create a VPLReportSuite instance
     VplReportSuite suite = new VplReportSuite();
 
+    System.out.println(vplTests.size() + " VplTests was found");
+    
     // Take each test fo VplTests
     for (VplTest singleVplTestFromArray : vplTests) {
       System.out.println("Running " + singleVplTestFromArray.getName() + "test");
