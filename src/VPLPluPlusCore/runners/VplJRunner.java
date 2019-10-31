@@ -87,7 +87,7 @@ public class VplJRunner implements IVplRunner {
    */
   @Override
   public VplReportSuite run(ArrayList<VplTest> vplTests) {
-    
+
     /**
      *
      * Result = JUnitCore.runClasses(_class_) ->
@@ -97,18 +97,23 @@ public class VplJRunner implements IVplRunner {
      * Description = Failure.getMethodName() ->
      * https://junit.org/junit4/javadoc/4.12/org/junit/runner/Description.html
      */
-
     // create a VPLReportSuite instance
     VplReportSuite suite = new VplReportSuite();
 
     System.out.println(vplTests.size() + " VplTests was found");
-    
+
     // Take each test fo VplTests
     for (VplTest singleVplTestFromArray : vplTests) {
-      System.out.println("Running " + singleVplTestFromArray.getName() + "test");
+
+      System.out.println(
+              "Running "
+              + singleVplTestFromArray.getName()
+              + "test"
+      );
 
       // Use JUnit to run test the class normally
-      Result JUnitTestResult = JUnitCore.runClasses(singleVplTestFromArray.getVplTestClass());
+      Result JUnitTestResult = JUnitCore
+              .runClasses(singleVplTestFromArray.getVplTestClass());
 
       // Create the report for the vplTest
       VplReport singleTestReport = new VplReport(singleVplTestFromArray);
@@ -117,9 +122,9 @@ public class VplJRunner implements IVplRunner {
       List<Failure> fails = JUnitTestResult.getFailures();
 
       if (fails.size() > 0) {
-        
+
         System.out.println(" |..." + fails.size() + " Tests was not passed");
-        
+
         for (Failure failure : fails) {
           //automatically VplTest downgrade the grade
           Description jUnitTestDescription = failure.getDescription();
@@ -127,10 +132,10 @@ public class VplJRunner implements IVplRunner {
           System.out.println("   |... The method " + method + " failed");
           singleTestReport.addFailure(method);
         }
+
       }
-      
+
       //add report to suite
-      
       suite.addReport(singleTestReport);
     }
 
