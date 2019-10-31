@@ -25,6 +25,7 @@ public class VplReport {
     double approved = this.vplTest.getApproved();
 
     System.out.println("Total tests: " + String.valueOf(totalOfTests) + " Approved: " + String.valueOf(approved));
+    
     if (approved == 0) {
       return 100;
     }
