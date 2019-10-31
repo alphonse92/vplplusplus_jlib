@@ -3,16 +3,12 @@ import VPLPluPlusCore.Exceptions.VplTestException;
 import VPLPluPlusCore.VplLoader;
 import VPLPluPlusCore.cli.VplCli;
 import VPLPluPlusCore.models.VplLoaderExecutionsFiles;
-import VPLPluPlusCore.models.VplReportSuite;
-import java.io.File;
+import VPLPluPlusCore.utils.Files;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.cli.ParseException;
-import org.junit.runner.JUnitCore;
 
 /**
  *
@@ -60,26 +56,26 @@ import org.junit.runner.JUnitCore;
  * VplReportSuite
  *
  */
-public class main{
+public class main {
 
-  public static void main(String[] args){
-    try{
+    public static void main(String[] args) {
+        try {
 
-      VplLoaderExecutionsFiles files = new VplCli(args).parse();
-      VplLoader
-              .getInstance()
-              .run(files);
-    }catch(VplTestException ex){
-      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-    }catch(ParseException ex){
-      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-    }catch(MalformedURLException ex){
-      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-    }catch(ClassNotFoundException ex){
-      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-    }catch(URISyntaxException ex){
-      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Running VPL Runner from " + Files.EXECUTION_PATH);
+            VplLoaderExecutionsFiles files = new VplCli(args).parse();
+            VplLoader.getInstance().run(files);
+            
+        } catch (VplTestException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-  }
 
 }

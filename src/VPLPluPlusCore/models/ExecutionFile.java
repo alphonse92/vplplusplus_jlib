@@ -20,6 +20,7 @@ public class ExecutionFile{
 
   private File mount;
   private File[] files;
+  
   public ExecutionFile(File mount, File[] files){
     this.mount = mount;
     this.files = files;
@@ -28,6 +29,7 @@ public class ExecutionFile{
   public File getMount(){
     return this.mount;
   }
+  
   public File[] getFiles(){
     return this.files;
   }
@@ -50,17 +52,10 @@ public class ExecutionFile{
       classNames[i] = classname;
     }
 
-//    try{
-//      File f = new File("k:/");
-//      System.out.println("Is file? " + (f.isFile() ? "true" : "false"));
-//      URLClassLoader c = URLClassLoader.newInstance(new URL[]{f.toURI().toURL()}, ClassLoader.getSystemClassLoader());
-//      c.loadClass("MyClass");
-//      System.out.println("My class was loaded");
-//    }catch(Exception e){
-//      System.out.println("My class wasnt load");
-//    }
     URL url = this.mount.toURI().toURL();
+    
     System.out.println("Loading classes from: " + url.toString());
+    
     URLClassLoader cl = URLClassLoader.newInstance(new URL[]{url}, ClassLoader.getSystemClassLoader());
 
     for(int i = 0;i < nClassFiles;i++){
