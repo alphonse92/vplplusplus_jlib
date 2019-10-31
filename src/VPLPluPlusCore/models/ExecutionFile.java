@@ -43,6 +43,7 @@ public class ExecutionFile {
     int nClassFiles = this.files.length;
     String[] classNames = new String[nClassFiles];
     ArrayList<Class> out = new ArrayList();
+
     for (byte i = 0; i < nClassFiles; i++) {
       File currentFile = this.files[i];//get the iteration current file isntance
       String filename = currentFile.getName(); //get the name's file
@@ -56,20 +57,23 @@ public class ExecutionFile {
 
     System.out.println("Loading classes from: " + url.toString());
 
-    URLClassLoader cl = URLClassLoader.newInstance(new URL[]{url}, ClassLoader.getSystemClassLoader());
+    URLClassLoader currentClassLoader = URLClassLoader.newInstance(new URL[]{url}, ClassLoader.getSystemClassLoader());
 
     for (int i = 0; i < nClassFiles; i++) {
       String classname = classNames[i];
       try {
         System.out.print("  |..." + classname);
-        out.add(cl.loadClass(classname));
+        out.add(currentClassLoader.loadClass(classname));
         System.out.println(" [Ok]");
       } catch (ClassNotFoundException e) {
-        System.out.println(" [Error: Class not found ]");
-        e.printStackTrace();
+        System.out.println(" [ Error: " + classname + "  was not found ]: "
+                + "The classes should be named as the file is called."
+                + "For example: the class Calculator should be exist inside the file Calculator.class "
+        );
       }
     }
 
     return out;
+    
   }
 }
