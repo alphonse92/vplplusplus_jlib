@@ -9,6 +9,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface VplTestDescriptorMethodAnnotation {
 
+  String id();
+  
   String name();
 
   String objective();
