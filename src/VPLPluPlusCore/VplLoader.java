@@ -10,8 +10,10 @@ import VPLPluPlusCore.factories.parser.VplParserFactory;
 import VPLPluPlusCore.factories.runner.VplRunnerFactory;
 import VPLPluPlusCore.models.VplLoaderExecutionsFiles;
 import VPLPluPlusCore.models.VplReportSuite;
+import VPLPluPlusCore.models.VplTest;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 /**
  *
@@ -48,19 +50,14 @@ public class VplLoader {
           ClassNotFoundException,
           URISyntaxException,
           URISyntaxException {
-    return VplRunnerFactory
-            // get te current runner
-            .getRunner()
-            // Run the runner
-            .run(
-                    // Get the parser
-                    VplParserFactory
-                            // the parser converts the classes to 
-                            // VplTestClasses
-                            .getParser()
-                            // parse all the classes loaded to VPL test classes
-                            .parse(files.loadClasses())
-            );
+
+    // 0. Load the classes
+    ArrayList<Class> classes = files.loadClasses();
+    // 1. get the parser from the vplParserFactory
+    // 2. Send the array of classes to parse all of these in a array of VplTests
+    ArrayList<VplTest> arrayOfTests = VplParserFactory.getParser().parse(classes);
+    // 3. Send the array of vpl tests to the runner. 
+    return VplRunnerFactory.getRunner().run(arrayOfTests);
   }
 
 }
