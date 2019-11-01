@@ -5,8 +5,6 @@
  */
 package VPLPluPlusCore.models;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
