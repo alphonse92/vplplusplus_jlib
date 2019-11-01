@@ -26,7 +26,7 @@ public class Files {
       folderMount = new File(Files.EXECUTION_PATH);
     }
 
-    System.out.println("Listing files from" + folderMount);
+    System.out.println("Listing files from: " + folderMount);
 
     //if extensiones wasnt especified then return true
     if (filesByExtension == null || filesByExtension.length == 0) {

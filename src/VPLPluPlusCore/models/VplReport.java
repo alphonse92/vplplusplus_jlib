@@ -11,16 +11,16 @@ package VPLPluPlusCore.models;
  */
 public class VplReport {
 
-  private VplTest vplTest;
+  private Test vplTest;
 
-  public VplReport(VplTest vplTest) {
+  public VplReport(Test vplTest) {
     this.vplTest = vplTest;
   }
 
   public double getGrade() {
 
-    double totalOfTests = this.vplTest.getTestDescriptorsSize();
-    double approved = this.vplTest.getApproved();
+    double totalOfTests = this.vplTest.getTestCasesQuantity();
+    double approved = this.vplTest.getTestCasesApprovedQuantity();
 
     System.out.println("Total tests: " + String.valueOf(totalOfTests) + " Approved: " + String.valueOf(approved));
     
@@ -35,6 +35,10 @@ public class VplReport {
 
     return percentage;
 
+  }
+  
+  public String toJSON(){
+    return "";
   }
 
 }

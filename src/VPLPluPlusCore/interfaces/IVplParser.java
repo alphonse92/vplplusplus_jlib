@@ -6,7 +6,7 @@
 package VPLPluPlusCore.interfaces;
 
 import VPLPluPlusCore.Exceptions.VplTestException;
-import VPLPluPlusCore.models.VplTest;
+import VPLPluPlusCore.models.Test;
 import java.util.ArrayList;
 
 /**
@@ -15,5 +15,5 @@ import java.util.ArrayList;
  */
 public interface IVplParser {
 
-  public ArrayList<VplTest> parse(ArrayList<Class> classes) throws VplTestException;
+  public ArrayList<Test> parse(ArrayList<Class> classes) throws VplTestException;
 }

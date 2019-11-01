@@ -1,12 +1,13 @@
 package VPLPluPlusCore.parsers;
 
-import VPLPluPlusCore.models.VplTestMethodDescriptor;
-import VPLPluPlusCore.models.VplTest;
+import VPLPluPlusCore.models.TestCase;
+import VPLPluPlusCore.models.Test;
 import VPLPluPlusCore.Exceptions.VplTestException;
-import VPLPluPlusCore.annotations.VplPlusPlusAnnotation;
+import VPLPluPlusCore.annotations.VplTestCase;
 import VPLPluPlusCore.interfaces.IVplParser;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import VPLPluPlusCore.annotations.VplPlusPlus;
 
 /**
  * 
@@ -28,29 +29,34 @@ public class VplParser implements IVplParser {
    * @throws VplTestException if exist two methods with same id
    */
   @Override
-  public ArrayList<VplTest> parse(ArrayList<Class> classesFromExecutionFiles) throws VplTestException {
+  public ArrayList<Test> parse(ArrayList<Class> classesFromExecutionFiles) throws VplTestException {
 
-    ArrayList<VplTest> ArrayOfVplTests = new ArrayList();
+    ArrayList<Test> ArrayOfVplTests = new ArrayList();
 
     for (Class classLoadedFromExecutionFile : classesFromExecutionFiles) {
       // if the classLoadedFromExecution file is a vpl test
       if (isTheClassAVplTest(classLoadedFromExecutionFile)) {
         // Then create a VPLtest for the loaded class
-        VplTest vplTestInfo = VplTest.create(classLoadedFromExecutionFile);
+        Test test = Test.create(classLoadedFromExecutionFile);
         //Get the methods and iterate on it
         for (Method method : classLoadedFromExecutionFile.getDeclaredMethods()) {
           // if the method has a @test tag annotation
           // add to the test methods descriptors
-          if (method.isAnnotationPresent(org.junit.Test.class)) {
-            vplTestInfo.addTestMethodDescriptor(new VplTestMethodDescriptor(method));
+          if (this.shoudlAddTestCaseToTest(method)) {
+            test.addTestCase(new TestCase(method));
           }
         }
         // Add to the array of VPL tests
-        ArrayOfVplTests.add(vplTestInfo);
+        ArrayOfVplTests.add(test);
       }
     }
 
     return ArrayOfVplTests;
+  }
+  
+  private boolean shoudlAddTestCaseToTest(Method method){
+    return method.isAnnotationPresent(org.junit.Test.class)
+             && method.isAnnotationPresent(VplTestCase.class);
   }
 
   /**
@@ -62,9 +68,9 @@ public class VplParser implements IVplParser {
    */
   private boolean isTheClassAVplTest(Class classLoadedFromExecutionFile) {
     return classLoadedFromExecutionFile
-            .isAnnotationPresent(VplPlusPlusAnnotation.class)
-            && ((VplPlusPlusAnnotation) classLoadedFromExecutionFile
-                    .getAnnotation(VplPlusPlusAnnotation.class))
+            .isAnnotationPresent(VplPlusPlus.class)
+            && ((VplPlusPlus) classLoadedFromExecutionFile
+                    .getAnnotation(VplPlusPlus.class))
                     .enabled();
   }
 

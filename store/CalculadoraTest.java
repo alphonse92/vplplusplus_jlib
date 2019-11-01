@@ -2,21 +2,20 @@
 import org.junit.Test;
 import VPLPluPlusCore.Configurator;
 import static org.junit.Assert.assertEquals;
-import VPLPluPlusCore.annotations.VplPlusPlusAnnotation;
-import VPLPluPlusCore.annotations.VplTestInfoAnnotation;
-import VPLPluPlusCore.annotations.VplTestDescriptorAnnotation;
+import VPLPluPlusCore.annotations.VplPlusPlus;
+import VPLPluPlusCore.annotations.VplTest;
+import VPLPluPlusCore.annotations.VplTestCase;
 import org.junit.Before;
 
-@VplPlusPlusAnnotation
-@VplTestInfoAnnotation(
+@VplPlusPlus
+@VplTest(
         //The name attribute must be unique at classpath, otherwise the parser
         //will return an exception
+        project = "project",
         name = "Test de calculadora 1",
-        tags = "Calculadora, operaciones basicas",
         created_by = "Alejandro Molina",
-        maxGrade = 25,
         //can be html
-        objetive = "<ul>"
+        objective = "<ul>"
         + "<li>Evaluar conocimientos básicos de Java</li>"
         + "<li>Evaluar la aplicacion de operaciones aritméticas básicas</li>"
         + "</ul>"
@@ -30,7 +29,8 @@ public class CalculadoraTest{
     test = new Calculadora();
   }
 
-  @VplTestDescriptorAnnotation(
+  @VplTestCase(
+          id = "test case id",
           name = "Constructor",
           objective = "El constructor es correcto",
           grade = 13,
@@ -44,7 +44,8 @@ public class CalculadoraTest{
     new Calculadora();
   }
 
-  @VplTestDescriptorAnnotation(
+  @VplTestCase(
+          id = "test case id",
           name = "sumar",
           objective = "Sumar dos parámetros",
           grade = 13,
@@ -58,7 +59,8 @@ public class CalculadoraTest{
     assertEquals(3, test.sumar(1, 2));
   }
 
-  @VplTestDescriptorAnnotation(
+  @VplTestCase(
+          id = "test case id",
           name = "restar",
           objective = "Restar dos parámetros",
           grade = 13,
@@ -72,7 +74,8 @@ public class CalculadoraTest{
     assertEquals(-1, test.restar(1, 2));
   }
 
-  @VplTestDescriptorAnnotation(
+  @VplTestCase(
+          id = "test case id",
           name = "Multiplicar",
           objective = "Multiplicar dos parámetros",
           grade = 13,
@@ -86,7 +89,8 @@ public class CalculadoraTest{
     assertEquals(2, test.multiplicar(1, 2));
   }
 
-  @VplTestDescriptorAnnotation(
+  @VplTestCase(
+          id = "test case id",
           name = "Dividir",
           objective = "Dividir dos parámetros",
           grade = 13,

@@ -6,7 +6,7 @@
 package VPLPluPlusCore.interfaces;
 
 import VPLPluPlusCore.models.VplReportSuite;
-import VPLPluPlusCore.models.VplTest;
+import VPLPluPlusCore.models.Test;
 import java.util.ArrayList;
 
 /**
@@ -15,5 +15,5 @@ import java.util.ArrayList;
  */
 public interface IVplRunner extends StateCycleLife {
 
-  public VplReportSuite run(ArrayList<VplTest> tests);
+  public VplReportSuite run(ArrayList<Test> tests);
 }

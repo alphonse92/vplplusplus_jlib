@@ -3,7 +3,7 @@ package VPLPluPlusCore.annotations;
 import java.lang.annotation.Annotation;
 import java.sql.Timestamp;
 
-public class DefaultAnnotation implements VplTestDescriptorMethodAnnotation {
+public class DefaultAnnotation implements VplTestCase {
 
   private String name = new Timestamp(System.currentTimeMillis()).toString(); //default value
 
@@ -51,6 +51,11 @@ public class DefaultAnnotation implements VplTestDescriptorMethodAnnotation {
 
   @Override
   public Class<? extends Annotation> annotationType() {
-    return VplTestDescriptorMethodAnnotation.class;
+    return VplTestCase.class;
+  }
+
+  @Override
+  public String id() {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 }

@@ -8,7 +8,7 @@ package VPLPluPlusCore.runners;
 import VPLPluPlusCore.interfaces.IVplRunner;
 import VPLPluPlusCore.models.VplReport;
 import VPLPluPlusCore.models.VplReportSuite;
-import VPLPluPlusCore.models.VplTest;
+import VPLPluPlusCore.models.Test;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.runner.Description;
@@ -39,7 +39,7 @@ public class VplJRunner implements IVplRunner {
    * @return
    */
   @Override
-  public VplReportSuite run(ArrayList<VplTest> vplTests) {
+  public VplReportSuite run(ArrayList<Test> vplTests) {
     this.before();
     /**
      *
@@ -56,11 +56,11 @@ public class VplJRunner implements IVplRunner {
     System.out.println(vplTests.size() + " VplTests was found");
 
     // Take each test fo VplTests
-    for (VplTest vplTest : vplTests) {
+    for (Test vplTest : vplTests) {
 
       System.out.println(
               "   Running "
-              + vplTest.getName()
+              + vplTest.name()
               + "test"
       );
 
@@ -84,7 +84,7 @@ public class VplJRunner implements IVplRunner {
           String method = jUnitTestDescription.getMethodName();
           System.out.println("       |... The method " + method + " failed");
           // setting the failure
-          vplTest.setFailure(method);
+          vplTest.setTestCaseFailure(method);
 
         }
 
