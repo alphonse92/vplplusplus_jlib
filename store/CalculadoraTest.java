@@ -112,7 +112,7 @@ public class CalculadoraTest{
   
   @Test(timeout = Configurator.TIMEOUT_VERY_LONG)
   public void SingleJUnitMethodThatFails(){
-    assertEquals(2, test.multiplicar(1, 2));
+    assertEquals(3, test.multiplicar(1, 2));
   }
 
 }
