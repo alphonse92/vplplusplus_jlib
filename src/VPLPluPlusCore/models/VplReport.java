@@ -35,8 +35,8 @@ public class VplReport {
 
   }
   
-  public String toJSON(){
-    return "";
+  public String toJson(String moodle_user){
+    return this.vplTest.toJson(moodle_user);
   }
 
 }

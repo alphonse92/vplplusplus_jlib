@@ -9,6 +9,9 @@ import VPLPluPlusCore.Exceptions.VplTestException;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import VPLPluPlusCore.annotations.VplTest;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  *
@@ -20,10 +23,10 @@ public class Test implements VplTest {
   private int maxGrade = 0;
   private final Class vplTestClass;
   private final VplTest annotation;
-  private final HashMap<String, TestCase> descriptors;
+  private final HashMap<String, TestCase> testCases;
 
   public Test(Class vplTestClass, VplTest annotation) {
-    this.descriptors = new HashMap();
+    this.testCases = new HashMap();
     this.annotation = annotation;
     this.vplTestClass = vplTestClass;
 
@@ -45,10 +48,10 @@ public class Test implements VplTest {
 //valide if exist a method with same id
     String methodName = testDescriptor.getMethod().getName();
 
-    if (!this.descriptors.containsKey(methodName)) {
+    if (!this.testCases.containsKey(methodName)) {
 
       //if doesnt exist a method with same id then put it in hashmap
-      this.descriptors.put(methodName, testDescriptor);
+      this.testCases.put(methodName, testDescriptor);
       this.maxGrade += testDescriptor.grade();
 
       this.setTestCaseSuccess(methodName);
@@ -60,7 +63,7 @@ public class Test implements VplTest {
   }
 
   public TestCase getMethodDescriptor(String methodName) {
-    return this.descriptors.get(methodName);
+    return this.testCases.get(methodName);
   }
 
   public Class getVplTestClass() {
@@ -86,7 +89,7 @@ public class Test implements VplTest {
   }
 
   public int getTestCasesQuantity() {
-    return this.descriptors.size();
+    return this.testCases.size();
   }
 
   @Override
@@ -96,10 +99,9 @@ public class Test implements VplTest {
 
   @Override
   public String name() {
-   return this.annotation.name();
+    return this.annotation.name();
   }
 
-  
   @Override
   public String created_by() {
     return this.annotation.created_by();
@@ -117,6 +119,27 @@ public class Test implements VplTest {
   @Override
   public Class<? extends Annotation> annotationType() {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+
+  private ArrayList<String> getJsonOfTestCases() {
+    ArrayList<String> jsonOfTestCases = new ArrayList();
+
+    for (Map.Entry pair : this.testCases.entrySet()) {
+      TestCase testCase = (TestCase) pair.getValue();
+      jsonOfTestCases.add(testCase.toJson());
+    }
+
+    return jsonOfTestCases;
+  }
+
+  public String toJson(String moodle_user) {
+    String project = this.project();
+    ArrayList<String> jsons = this.getJsonOfTestCases();
+    String data = String.join(",", jsons);
+    return "{\"moodle_user\": " + moodle_user + ","
+            + "\"project\": \"" + project + "\","
+            + "\"data\":[" + data + "]"
+            + "}";
   }
 
 }

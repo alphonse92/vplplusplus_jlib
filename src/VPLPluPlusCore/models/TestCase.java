@@ -11,6 +11,7 @@ import VPLPluPlusCore.annotations.VplTestCase;
 
 /**
  * Test case is a method of a VPL test
+ *
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  */
 public class TestCase implements VplTestCase {
@@ -80,5 +81,15 @@ public class TestCase implements VplTestCase {
   public void setSuccess(boolean isSuccess) {
     this.success = isSuccess;
   }
-  
+
+  public String toJson() {
+    String approved = this.isSuccess() ? "true" : "false";
+    String test_case = this.id();
+    return "{"
+            + "\"output\": \"\","
+            + "\"approved\": " + approved + ","
+            + "\"test_case\": \"" + test_case + "\""
+            + "}";
+  }
+
 }

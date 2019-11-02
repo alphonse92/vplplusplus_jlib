@@ -65,14 +65,15 @@ public class ApiExporter implements IExporter {
       for (VplReport singleReport : reports) {
 
         HttpPost request = new HttpPost(this.url);
-        request.setEntity(new StringEntity("{\"a\":1}"));
-        
+        String body = singleReport.toJson("1");
+        request.setEntity(new StringEntity(body));
+
         request.setHeader("Accept", "application/json");
         request.setHeader("Content-type", "application/json");
         if (this.token != null) {
           request.setHeader("Authorization", "Bearer " + this.token);
         }
-        
+
         Future<HttpResponse> future = httpclient.execute(request, null);
         HttpResponse response = future.get();
 
@@ -82,16 +83,16 @@ public class ApiExporter implements IExporter {
         VplLogger.getInstance().logLn("Response : " + status.toString());
 
         if (!this.isResponseOk(statuscode)) {
-          throw new ApiUnreacheable(this.url);
+          throw new ApiUnreacheable(this.url, request,body, response);
         }
-        
+
       }
 
     } catch (InterruptedException | ExecutionException | IOException ex) {
       throw new ApiUnreacheable(this.url);
     } finally {
       try {
-        VplLogger.getInstance().logLn("Done");
+        VplLogger.getInstance().logLn("Closing client");
         httpclient.close();
       } catch (IOException ex) {
         Logger.getLogger(ApiExporter.class.getName()).log(Level.SEVERE, null, ex);

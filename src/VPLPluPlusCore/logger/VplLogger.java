@@ -62,11 +62,18 @@ public class VplLogger {
     if (!this.isDev()) {
       return;
     }
-    
+
     System.out.print(str);
   }
-  
-  private boolean isDev(){
+
+  public void error(String string) {
+    if (!this.isDev()) {
+      return;
+    }
+    System.err.println(string);
+  }
+
+  private boolean isDev() {
     boolean isdev = this.environment.equalsIgnoreCase("development");
     return isdev;
   }
