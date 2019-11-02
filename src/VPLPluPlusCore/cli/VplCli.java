@@ -37,12 +37,10 @@ public class VplCli {
 
     this.options.addOption("h", "help", false, "show help.");
     this.options.addOption("f", "files", true, "specify files to classpath execution");
-    this.options.addOption("e", "environment", false, "Specify the environment");
-    this.options.addOption("v", "verbose", false, "Specify the verbose level");
+    this.options.addOption("e", "environment", true, "Specify the environment");
 
     CommandLineParser parser = new DefaultParser();
     this.cmd = parser.parse(options, this.args, true);
-
     if (this.cmd.hasOption("h")) {
       this.help();
     }
@@ -57,6 +55,7 @@ public class VplCli {
   }
 
   public String getEnvironment() {
+
     String environment = this.cmd.getOptionValue("e");
     String val = environment == null ? APP.ENV_DEF : environment;
     return val;

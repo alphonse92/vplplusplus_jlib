@@ -51,7 +51,7 @@ public class VplLogger {
   }
 
   public void logLn(String str) {
-    if (!this.environment.equalsIgnoreCase("development")) {
+    if (!this.isDev()) {
       return;
     }
 
@@ -59,11 +59,16 @@ public class VplLogger {
   }
 
   public void log(String str) {
-    if (!this.environment.equalsIgnoreCase("development")) {
+    if (!this.isDev()) {
       return;
     }
     
     System.out.print(str);
+  }
+  
+  private boolean isDev(){
+    boolean isdev = this.environment.equalsIgnoreCase("development");
+    return isdev;
   }
 
   public void error(String name, Exception e) {

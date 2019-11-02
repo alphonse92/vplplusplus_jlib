@@ -98,6 +98,7 @@ public class ApiExporter implements IExporter {
     options.addOption("t", "token", true, "Api token");
     options.addOption("u", "url", true, "Api url");
     options.addOption("f", "files", true, "default f parameter of vplloader");
+    options.addOption("e", "environment", true, "default e parameter of vplloader");
 
     CommandLineParser parser = new DefaultParser();
     CommandLine cmd = parser.parse(options, this.args);
