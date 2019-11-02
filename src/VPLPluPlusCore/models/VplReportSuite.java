@@ -44,6 +44,10 @@ public class VplReportSuite{
      return this;
   }
   
+  public VplReportSuite export(){
+    return this;
+  }
+  
   private void printGrade(double grade) {
     System.out.print("Grade :=>> ");
     System.out.printf("%.2f",grade);

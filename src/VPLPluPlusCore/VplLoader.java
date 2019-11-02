@@ -59,7 +59,9 @@ public class VplLoader {
     // 3. Send the array of vpl tests to the runner. 
     VplReportSuite report = VplRunnerFactory.getRunner().run(arrayOfTests);
 
-    return report.print();
+    return report
+            .print()
+            .export();
   }
 
 }
