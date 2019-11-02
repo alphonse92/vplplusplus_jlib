@@ -5,6 +5,7 @@
  */
 package VPLPluPlusCore.exporters;
 
+import VPLPluPlusCore.Exceptions.ApiError;
 import VPLPluPlusCore.Exceptions.ApiExporterBadParameter;
 import VPLPluPlusCore.Exceptions.ApiUnreacheable;
 import VPLPluPlusCore.Exceptions.NoUrlException;
@@ -86,7 +87,7 @@ public class ApiExporter implements IExporter {
         VplLogger.getInstance().logLn("Response : " + status.toString());
 
         if (!this.isResponseOk(statuscode)) {
-          throw new ApiUnreacheable(this.url, request, body, response);
+          throw new ApiError(this.url, request, body, response);
         }
 
       }
