@@ -64,7 +64,6 @@ public class main {
 
       VplCli cli = new VplCli(args);
       String environment = cli.getEnvironment();
-      System.out.println(environment);
       
       logger.setEnvironment(environment);
       VplLoaderExecutionsFiles files = cli.getFiles();

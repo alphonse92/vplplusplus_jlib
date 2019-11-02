@@ -53,6 +53,7 @@ public class ApiExporter implements IExporter {
     }
 
     CloseableHttpAsyncClient httpclient = HttpAsyncClients.createDefault();
+    
     try {
       httpclient.start();
 
