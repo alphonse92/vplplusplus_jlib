@@ -6,6 +6,7 @@
 package VPLPluPlusCore.runners;
 
 import VPLPluPlusCore.interfaces.IVplRunner;
+import VPLPluPlusCore.logger.VplLogger;
 import VPLPluPlusCore.models.VplReport;
 import VPLPluPlusCore.models.VplReportSuite;
 import VPLPluPlusCore.models.Test;
@@ -53,12 +54,12 @@ public class VplJRunner implements IVplRunner {
     // create a VPLReportSuite instance
     VplReportSuite suite = new VplReportSuite();
 
-    System.out.println(vplTests.size() + " VplTests was found");
+    VplLogger.getInstance().logLn(vplTests.size() + " VplTests was found");
 
     // Take each test fo VplTests
     for (Test vplTest : vplTests) {
 
-      System.out.println(
+      VplLogger.getInstance().logLn(
               "   Running "
               + vplTest.name()
               + "test"
@@ -75,14 +76,14 @@ public class VplJRunner implements IVplRunner {
 
       if (fails.size() > 0) {
 
-        System.out.println("    |..." + fails.size() + " Tests was not passed");
+        VplLogger.getInstance().logLn("    |..." + fails.size() + " Tests was not passed");
 
         for (Failure failure : fails) {
 
           //automatically VplTest downgrade the grade
           Description jUnitTestDescription = failure.getDescription();
           String method = jUnitTestDescription.getMethodName();
-          System.out.println("       |... The method " + method + " failed");
+          VplLogger.getInstance().logLn("       |... The method " + method + " failed");
           // setting the failure
           vplTest.setTestCaseFailure(method);
 
@@ -119,7 +120,7 @@ public class VplJRunner implements IVplRunner {
     String prefix = isFailure ? "[SUCCESS] " : "[FAIL] ";
     String out = "Comment :=>> "; // + prefix
     out += commentary;
-    System.out.println(out);
+    VplLogger.getInstance().logLn(out);
   } 
 
 }

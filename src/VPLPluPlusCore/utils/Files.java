@@ -1,5 +1,6 @@
 package VPLPluPlusCore.utils;
 
+import VPLPluPlusCore.logger.VplLogger;
 import java.io.File;
 import java.io.FilenameFilter;
 
@@ -26,7 +27,7 @@ public class Files {
       folderMount = new File(Files.EXECUTION_PATH);
     }
 
-    System.out.println("Listing files from: " + folderMount);
+    VplLogger.getInstance().logLn("Listing files from: " + folderMount);
 
     //if extensiones wasnt especified then return true
     if (filesByExtension == null || filesByExtension.length == 0) {
@@ -37,7 +38,7 @@ public class Files {
     return folderMount.listFiles(new FilenameFilter() {
       @Override
       public boolean accept(File dir, String name) {
-        System.out.println("  |..." + name);
+        VplLogger.getInstance().logLn("  |..." + name);
 
         String[] parts = name.split("\\.");
         for (byte i = 0; (i < filesByExtension.length); i++) {

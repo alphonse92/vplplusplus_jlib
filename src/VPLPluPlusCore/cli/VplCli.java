@@ -5,6 +5,7 @@
  */
 package VPLPluPlusCore.cli;
 
+import VPLPluPlusCore.APP;
 import VPLPluPlusCore.models.VplLoaderExecutionsFiles;
 import VPLPluPlusCore.models.ExecutionFile;
 import VPLPluPlusCore.utils.Files;
@@ -24,36 +25,41 @@ import org.apache.commons.cli.ParseException;
  */
 public class VplCli {
 
-  private Options options;
-  private String[] args;
+  private final String[] args;
+  private final CommandLine cmd;
+  private final Options options;
 
-  public VplCli(String[] args) {
+  public VplCli(String[] args) throws ParseException {
+
     this.args = args;
-    createOptions();
-  }
 
-  private void createOptions() {
     this.options = new Options();
-    options.addOption("h", "help", false, "show help.");
-    options.addOption("p", "plugin", true, "add Vpl Plus Plus Plugin");
-    options.addOption("f", "files", true, "specify files to classpath execution");
-  }
 
-  public VplLoaderExecutionsFiles parse() throws ParseException {
+    this.options.addOption("h", "help", false, "show help.");
+    this.options.addOption("f", "files", true, "specify files to classpath execution");
+    this.options.addOption("e", "environment", false, "Specify the environment");
+    this.options.addOption("v", "verbose", false, "Specify the verbose level");
 
     CommandLineParser parser = new DefaultParser();
-    CommandLine cmd = parser.parse(options, this.args);
+    this.cmd = parser.parse(options, this.args, true);
 
-    if (cmd.hasOption("h")) {
+    if (this.cmd.hasOption("h")) {
       this.help();
-      return null;
     }
 
-    ExecutionFile[] executionFilesFromCommandLine = this.getExecutionFiles(cmd.getOptionValues("f"));
+  }
 
+  public VplLoaderExecutionsFiles getFiles() {
+    ExecutionFile[] executionFilesFromCommandLine = this.getExecutionFiles(this.cmd.getOptionValues("f"));
     return new VplLoaderExecutionsFiles(
             executionFilesFromCommandLine,
-            this.getPluginsPath(cmd.getOptionValues("p")));
+            this.getPluginsPath(this.cmd.getOptionValues("p")));
+  }
+
+  public String getEnvironment() {
+    String environment = this.cmd.getOptionValue("e");
+    String val = environment == null ? APP.ENV_DEF : environment;
+    return val;
   }
 
   private void help() {
@@ -107,6 +113,12 @@ public class VplCli {
 
   private String[] getPluginsPath(String[] values) {
     return values;
+  }
+
+  public boolean isVerbose() {
+    String verboseValue = this.cmd.getOptionValue("v");
+    boolean isVerbose = verboseValue != null && verboseValue.equalsIgnoreCase("true");
+    return isVerbose;
   }
 
 }

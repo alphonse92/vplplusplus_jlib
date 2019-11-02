@@ -39,19 +39,4 @@ public class VplReportSuite{
     return totalGrade / totalOfReports;
   }  
   
-  public VplReportSuite print(){
-     this.printGrade(this.getGrade());
-     return this;
-  }
-  
-  public VplReportSuite export(){
-    return this;
-  }
-  
-  private void printGrade(double grade) {
-    System.out.print("Grade :=>> ");
-    System.out.printf("%.2f",grade);
-    System.out.println("");
-  }
-  
 }

@@ -2,12 +2,11 @@
 import VPLPluPlusCore.Exceptions.VplTestException;
 import VPLPluPlusCore.VplLoader;
 import VPLPluPlusCore.cli.VplCli;
+import VPLPluPlusCore.logger.VplLogger;
 import VPLPluPlusCore.models.VplLoaderExecutionsFiles;
 import VPLPluPlusCore.utils.Files;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.cli.ParseException;
 
 /**
@@ -59,25 +58,36 @@ import org.apache.commons.cli.ParseException;
 public class main {
 
   public static void main(String[] args) {
+    String name = main.class.getName();
+    VplLogger logger = VplLogger.getInstance();
     try {
 
-      System.out.println("Running VPL Runner from " + Files.EXECUTION_PATH);
-      VplLoaderExecutionsFiles files = new VplCli(args).parse();
-      if (files != null) {
+      VplCli cli = new VplCli(args);
+      String environment = cli.getEnvironment();
+      System.out.println(environment);
+      
+      logger.setEnvironment(environment);
+      VplLoaderExecutionsFiles files = cli.getFiles();
+      
+      
+      String x = null;
+
+      if (files != null || files.size() > 0) {
+        logger.logLn("Running VPL Runner from " + Files.EXECUTION_PATH);
         VplLoader
-                .getInstance()
-                .run(files);
+                .getInstance(environment)
+                .run(args, files);
       }
-    } catch (VplTestException ex) {
-      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (ParseException ex) {
-      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (MalformedURLException ex) {
-      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (ClassNotFoundException ex) {
-      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (URISyntaxException ex) {
-      Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+
+    } catch (VplTestException
+            | ParseException
+            | MalformedURLException
+            | ClassNotFoundException
+            | URISyntaxException
+            | NullPointerException ex) {
+      logger.error(name, ex);
+    } catch (Exception ex) {
+      logger.error(name, ex);
     }
   }
 

@@ -5,6 +5,8 @@
  */
 package VPLPluPlusCore.models;
 
+import VPLPluPlusCore.Exceptions.ClassNotFound;
+import VPLPluPlusCore.logger.VplLogger;
 import VPLPluPlusCore.utils.Files;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -36,10 +38,10 @@ public class ExecutionFile {
 
   /**
    * This method load the classes from execution File.
-   *  
+   *
    * @return @throws MalformedURLException
    */
-  public ArrayList<Class> getExecutionFilesClasses() throws MalformedURLException {
+  public ArrayList<Class> getExecutionFilesClasses() throws MalformedURLException, ClassNotFound {
     //default
     if (this.files.length == 0) {
       return new ArrayList();
@@ -47,7 +49,6 @@ public class ExecutionFile {
     //init elements
     int nClassFiles = this.files.length;
     String[] classNames = new String[nClassFiles];
-    
 
     // As standar says, the class should be capitalized, and the filename
     // should be called as the class name. So, the class
@@ -57,7 +58,7 @@ public class ExecutionFile {
       // Get the file
       File currentFile = this.files[i];
       // Get the file name of currentFile
-      String filename = currentFile.getName(); 
+      String filename = currentFile.getName();
       // Get the classname from path /folder/to/The/Calculator.class 
       // getting the Calculator.class and after cut by dot extension
       String classname = String.join(".", filename
@@ -71,7 +72,7 @@ public class ExecutionFile {
     // get the current url where is the execution file
     URL url = this.mount.toURI().toURL();
 
-    System.out.println("Loading classes from: " + url.toString());
+    VplLogger.getInstance().logLn("Loading classes from: " + url.toString());
     // Get the class loader
     URLClassLoader currentClassLoader = URLClassLoader.newInstance(new URL[]{url}, ClassLoader.getSystemClassLoader());
     // Declare the out
@@ -81,23 +82,17 @@ public class ExecutionFile {
       // get the class name
       String classname = classNames[i];
       try {
-        System.out.print("  |..." + classname);
+        VplLogger.getInstance().log("  |..." + classname);
         // try to load the class from the url
         arrayOfClasses.add(currentClassLoader.loadClass(classname));
         // print ok if all works fine
-        System.out.println(" [Ok]");
+        VplLogger.getInstance().logLn(" [Ok]");
       } catch (ClassNotFoundException e) {
-        // if the class was not found, should a message
-        System.out.println(" [ Error: " + classname + "  was not found ]: "
-                + "The classes should be named as the file is called."
-                + "For example: the class Calculator should be exist inside the file Calculator.class "
-        );
+        throw new ClassNotFound(classname);
       }
-      // go iterate
     }
 
     // return an array of loaded classes
-    
     return arrayOfClasses;
 
   }
