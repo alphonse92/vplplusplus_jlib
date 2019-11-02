@@ -82,6 +82,11 @@ public class TestCase implements VplTestCase {
     this.success = isSuccess;
   }
 
+  public static boolean isTheMethodAVplTestCase(Method method){
+    return method.isAnnotationPresent(org.junit.Test.class)
+             && method.isAnnotationPresent(VplTestCase.class);
+  }
+  
   public String toJson() {
     String approved = this.isSuccess() ? "true" : "false";
     String test_case = this.id();

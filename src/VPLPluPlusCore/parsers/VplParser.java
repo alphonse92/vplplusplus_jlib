@@ -35,14 +35,14 @@ public class VplParser implements IVplParser {
 
     for (Class classLoadedFromExecutionFile : classesFromExecutionFiles) {
       // if the classLoadedFromExecution file is a vpl test
-      if (isTheClassAVplTest(classLoadedFromExecutionFile)) {
+      if (Test.isTheClassAVplTest(classLoadedFromExecutionFile)) {
         // Then create a VPLtest for the loaded class
         Test test = Test.create(classLoadedFromExecutionFile);
         //Get the methods and iterate on it
         for (Method method : classLoadedFromExecutionFile.getDeclaredMethods()) {
           // if the method has a @test tag annotation
           // add to the test methods descriptors
-          if (this.shoudlAddTestCaseToTest(method)) {
+          if (TestCase.isTheMethodAVplTestCase(method)) {
             test.addTestCase(new TestCase(method));
           }
         }
@@ -54,24 +54,6 @@ public class VplParser implements IVplParser {
     return ArrayOfVplTests;
   }
   
-  private boolean shoudlAddTestCaseToTest(Method method){
-    return method.isAnnotationPresent(org.junit.Test.class)
-             && method.isAnnotationPresent(VplTestCase.class);
-  }
-
-  /**
-   * Validate if the class has the VplPlusPlusAnnotation annotation and if it is
-   * enable
-   *
-   * @param classLoadedFromExecutionFile
-   * @return true if the class is a VPL test
-   */
-  private boolean isTheClassAVplTest(Class classLoadedFromExecutionFile) {
-    return classLoadedFromExecutionFile
-            .isAnnotationPresent(VplPlusPlus.class)
-            && ((VplPlusPlus) classLoadedFromExecutionFile
-                    .getAnnotation(VplPlusPlus.class))
-                    .enabled();
-  }
+  
 
 }

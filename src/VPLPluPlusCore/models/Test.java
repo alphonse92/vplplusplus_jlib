@@ -6,6 +6,7 @@
 package VPLPluPlusCore.models;
 
 import VPLPluPlusCore.Exceptions.VplTestException;
+import VPLPluPlusCore.annotations.VplPlusPlus;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import VPLPluPlusCore.annotations.VplTest;
@@ -76,8 +77,13 @@ public class Test implements VplTest {
   }
 
   public void setTestCaseFailure(String method) {
-    this.getMethodDescriptor(method).setSuccess(false);
-    this.approved -= 1;
+    
+    TestCase testCase = this.getMethodDescriptor(method);
+    
+    if (testCase != null) {
+      this.approved -= 1;
+      testCase.setSuccess(false);
+    }
   }
 
   public int getTestCasesApprovedQuantity() {
@@ -130,6 +136,14 @@ public class Test implements VplTest {
     }
 
     return jsonOfTestCases;
+  }
+  
+  public static boolean isTheClassAVplTest(Class classLoadedFromExecutionFile) {
+    return classLoadedFromExecutionFile
+            .isAnnotationPresent(VplPlusPlus.class)
+            && ((VplPlusPlus) classLoadedFromExecutionFile
+                    .getAnnotation(VplPlusPlus.class))
+                    .enabled();
   }
 
   public String toJson(String moodle_user) {
