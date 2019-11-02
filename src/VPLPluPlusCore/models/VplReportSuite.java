@@ -11,32 +11,36 @@ import java.util.ArrayList;
  *
  * @author Eliecer Alejandro Molina Vergel <alejandro_mover@hotmail.com>
  */
-public class VplReportSuite{
+public class VplReportSuite {
 
   private final ArrayList<VplReport> singleReports;
   public static final boolean ORDER_ASC = true;
   public static final boolean ORDER_DESC = false;
   public static final int ORDER_BY_GRADE = 1;
 
-  public VplReportSuite(){
+  public VplReportSuite() {
     this.singleReports = new ArrayList();
   }
-  
-  public VplReportSuite addReport(VplReport singleTestReport){
+
+  public VplReportSuite addReport(VplReport singleTestReport) {
     this.singleReports.add(singleTestReport);
     return this;
   }
-  
-  public double getGrade(){
-    
+
+  public ArrayList<VplReport> getReports() {
+    return this.singleReports;
+  }
+
+  public double getGrade() {
+
     double totalOfReports = this.singleReports.size();
     double totalGrade = 0;
-    
-    for(VplReport testReport:this.singleReports){
-       totalGrade+=testReport.getGrade();
+
+    for (VplReport testReport : this.singleReports) {
+      totalGrade += testReport.getGrade();
     }
-    
+
     return totalGrade / totalOfReports;
-  }  
-  
+  }
+
 }

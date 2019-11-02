@@ -10,8 +10,10 @@ import VPLPluPlusCore.Exceptions.NoUrlException;
 import VPLPluPlusCore.Exceptions.VplException;
 import VPLPluPlusCore.interfaces.IExporter;
 import VPLPluPlusCore.logger.VplLogger;
+import VPLPluPlusCore.models.VplReport;
 import VPLPluPlusCore.models.VplReportSuite;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import java.util.concurrent.Future;
@@ -21,12 +23,11 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
 
@@ -53,26 +54,38 @@ public class ApiExporter implements IExporter {
     }
 
     CloseableHttpAsyncClient httpclient = HttpAsyncClients.createDefault();
-    
+
     try {
       httpclient.start();
 
-      VplLogger.getInstance().logLn("requesting to: " + this.url );
+      VplLogger.getInstance().logLn("requesting to: " + this.url);
 
-      HttpPost request = new HttpPost(this.url);
-      Future<HttpResponse> future = httpclient.execute(request, null);
-      HttpResponse response = future.get();
+      ArrayList<VplReport> reports = this.suite.getReports();
 
-      StatusLine status = response.getStatusLine();
-      int statuscode = status.getStatusCode();
-      
-      VplLogger.getInstance().logLn("Response : " + status.toString());
-      
-      if (!this.isResponseOk(statuscode)) {
-        throw new ApiUnreacheable(this.url);
+      for (VplReport singleReport : reports) {
+
+        HttpPost request = new HttpPost(this.url);
+        request.setEntity(new StringEntity("{\"a\":1}"));
+        
+        request.setHeader("Accept", "application/json");
+        request.setHeader("Content-type", "application/json");
+        if (this.token != null) {
+          request.setHeader("Authorization", "Bearer " + this.token);
+        }
+        
+        Future<HttpResponse> future = httpclient.execute(request, null);
+        HttpResponse response = future.get();
+
+        StatusLine status = response.getStatusLine();
+        int statuscode = status.getStatusCode();
+
+        VplLogger.getInstance().logLn("Response : " + status.toString());
+
+        if (!this.isResponseOk(statuscode)) {
+          throw new ApiUnreacheable(this.url);
+        }
+        
       }
-
-      httpclient.close();
 
     } catch (InterruptedException | ExecutionException | IOException ex) {
       throw new ApiUnreacheable(this.url);
