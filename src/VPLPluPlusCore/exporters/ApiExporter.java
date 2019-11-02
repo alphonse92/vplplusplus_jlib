@@ -57,7 +57,7 @@ public class ApiExporter implements IExporter {
     try {
       httpclient.start();
 
-      VplLogger.getInstance().logLn("requesting to: " + this.url);
+      VplLogger.getInstance().logLn("requesting to: " + this.url );
 
       HttpPost request = new HttpPost(this.url);
       Future<HttpResponse> future = httpclient.execute(request, null);
@@ -65,7 +65,9 @@ public class ApiExporter implements IExporter {
 
       StatusLine status = response.getStatusLine();
       int statuscode = status.getStatusCode();
-
+      
+      VplLogger.getInstance().logLn("Response : " + status.toString());
+      
       if (!this.isResponseOk(statuscode)) {
         throw new ApiUnreacheable(this.url);
       }
