@@ -62,7 +62,7 @@ public class VplJRunner implements IVplRunner {
       VplLogger.getInstance().logLn(
               "   Running "
               + vplTest.name()
-              + "test"
+              + " test"
       );
 
       // Use JUnit to run test the class normally
