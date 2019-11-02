@@ -35,7 +35,7 @@ public class VplReportSuite{
     for(VplReport testReport:this.singleReports){
        totalGrade+=testReport.getGrade();
     }
-    System.out.println("total "+ String.valueOf(totalGrade)+ " " + String.valueOf(totalOfReports));
+    
     return totalGrade / totalOfReports;
   }  
   

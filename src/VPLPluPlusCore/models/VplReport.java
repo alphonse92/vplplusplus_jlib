@@ -22,8 +22,6 @@ public class VplReport {
     double totalOfTests = this.vplTest.getTestCasesQuantity();
     double approved = this.vplTest.getTestCasesApprovedQuantity();
 
-    System.out.println("Total tests: " + String.valueOf(totalOfTests) + " Approved: " + String.valueOf(approved));
-    
     if (approved == 0) {
       return 0;
     }
