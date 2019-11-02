@@ -11,7 +11,7 @@ import org.junit.Before;
 @VplTest(
         //The name attribute must be unique at classpath, otherwise the parser
         //will return an exception
-        project = "project",
+        project = "5dbde95c22b5259ca46f359d",
         name = "Test de calculadora 1",
         created_by = "Alejandro Molina",
         //can be html
@@ -30,7 +30,7 @@ public class CalculadoraTest{
   }
 
   @VplTestCase(
-          id = "test case id",
+          id = "5dbde95d22b5259ca46f35ab",
           name = "Constructor",
           objective = "El constructor es correcto",
           grade = 13,
@@ -45,7 +45,7 @@ public class CalculadoraTest{
   }
 
   @VplTestCase(
-          id = "test case id",
+          id = "5dbde95d22b5259ca46f35ab",
           name = "sumar",
           objective = "Sumar dos parámetros",
           grade = 13,
@@ -60,7 +60,7 @@ public class CalculadoraTest{
   }
 
   @VplTestCase(
-          id = "test case id",
+          id = "5dbde95d22b5259ca46f35ab",
           name = "restar",
           objective = "Restar dos parámetros",
           grade = 13,
@@ -75,7 +75,7 @@ public class CalculadoraTest{
   }
 
   @VplTestCase(
-          id = "test case id",
+          id = "5dbde95d22b5259ca46f35ab",
           name = "Multiplicar",
           objective = "Multiplicar dos parámetros",
           grade = 13,
@@ -90,7 +90,7 @@ public class CalculadoraTest{
   }
 
   @VplTestCase(
-          id = "test case id",
+          id = "5dbde95d22b5259ca46f35ab",
           name = "Dividir",
           objective = "Dividir dos parámetros",
           grade = 13,
