@@ -16,12 +16,14 @@ import org.apache.http.HttpResponse;
 public class ApiUnreacheable extends VplException {
 
   public ApiUnreacheable(String url) {
-    super("API is unreacheable " + url);
+    super("API is unreacheable ");
+    VplLogger.getInstance().error(url);
   }
 
   public ApiUnreacheable(String url, HttpRequest request, String body, HttpResponse response) {
-    super("API is unreacheable " + url);
-    VplLogger.getInstance().error("Error in request: " + request.getRequestLine());
+    super("API is unreacheable ");
+    VplLogger.getInstance().error("Request  line: " + request.getRequestLine());
+    VplLogger.getInstance().error("Response line: " + response.getStatusLine());
     VplLogger.getInstance().error("Body: " + body);
   }
 

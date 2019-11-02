@@ -5,6 +5,7 @@
  */
 package VPLPluPlusCore.exporters;
 
+import VPLPluPlusCore.Exceptions.ApiExporterBadParameter;
 import VPLPluPlusCore.Exceptions.ApiUnreacheable;
 import VPLPluPlusCore.Exceptions.NoUrlException;
 import VPLPluPlusCore.Exceptions.VplException;
@@ -23,6 +24,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
+import org.apache.commons.cli.UnrecognizedOptionException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -41,6 +43,7 @@ public class ApiExporter implements IExporter {
   private String[] args;
   private String url;
   private String token;
+  private String moodle_user;
 
   public ApiExporter(VplReportSuite suite) {
     this.suite = suite;
@@ -83,7 +86,7 @@ public class ApiExporter implements IExporter {
         VplLogger.getInstance().logLn("Response : " + status.toString());
 
         if (!this.isResponseOk(statuscode)) {
-          throw new ApiUnreacheable(this.url, request,body, response);
+          throw new ApiUnreacheable(this.url, request, body, response);
         }
 
       }
@@ -113,16 +116,28 @@ public class ApiExporter implements IExporter {
 
     options.addOption("t", "token", true, "Api token");
     options.addOption("u", "url", true, "Api url");
+    options.addOption("m", "moodle_user", true, "moodle user");
     options.addOption("f", "files", true, "default f parameter of vplloader");
     options.addOption("e", "environment", true, "default e parameter of vplloader");
 
     CommandLineParser parser = new DefaultParser();
-    CommandLine cmd = parser.parse(options, this.args);
+    try {
 
-    this.url = cmd.getOptionValue("u");
-    this.token = cmd.getOptionValue("t");
+      CommandLine cmd = parser.parse(options, this.args);
+      this.url = cmd.getOptionValue("u");
+      this.token = cmd.getOptionValue("t");
+      this.moodle_user = cmd.getOptionValue('m');
 
-    return this;
+      if (this.moodle_user == null) {
+        throw new ApiExporterBadParameter(options, "moodle_user");
+      }
+
+      return this;
+
+    } catch (UnrecognizedOptionException ex) {
+      throw new ApiExporterBadParameter(options);
+    }
+
   }
 
 }
