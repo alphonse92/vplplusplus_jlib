@@ -5,6 +5,7 @@
  */
 package VPLPluPlusCore.interfaces;
 
+import VPLPluPlusCore.Exceptions.NoTestsFound;
 import VPLPluPlusCore.models.VplReportSuite;
 import VPLPluPlusCore.models.Test;
 import java.util.ArrayList;
@@ -15,5 +16,5 @@ import java.util.ArrayList;
  */
 public interface IVplRunner extends StateCycleLife {
 
-  public VplReportSuite run(ArrayList<Test> tests);
+  public VplReportSuite run(ArrayList<Test> tests) throws NoTestsFound;
 }

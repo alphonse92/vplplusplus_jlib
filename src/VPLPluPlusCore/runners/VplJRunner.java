@@ -5,6 +5,7 @@
  */
 package VPLPluPlusCore.runners;
 
+import VPLPluPlusCore.Exceptions.NoTestsFound;
 import VPLPluPlusCore.interfaces.IVplRunner;
 import VPLPluPlusCore.logger.VplLogger;
 import VPLPluPlusCore.models.VplReport;
@@ -40,7 +41,7 @@ public class VplJRunner implements IVplRunner {
    * @return
    */
   @Override
-  public VplReportSuite run(ArrayList<Test> vplTests) {
+  public VplReportSuite run(ArrayList<Test> vplTests) throws NoTestsFound {
     this.before();
     /**
      *
@@ -55,6 +56,10 @@ public class VplJRunner implements IVplRunner {
     VplReportSuite suite = new VplReportSuite();
 
     VplLogger.getInstance().logLn(vplTests.size() + " VplTests was found");
+
+    if (vplTests.size() == 0) {
+      throw new NoTestsFound();
+    }
 
     // Take each test fo VplTests
     for (Test vplTest : vplTests) {
@@ -107,20 +112,20 @@ public class VplJRunner implements IVplRunner {
 
   private void after(VplReportSuite suite) {
     this.end_time = System.nanoTime();
-    this.printTime("Executed in ", (this.end_time - this.start_time)  / 1e6 );
+    this.printTime("Executed in ", (this.end_time - this.start_time) / 1e6);
   }
 
-  private void printTime(String title,double time){
-    String timeStr = String.format("%.2f",time);
+  private void printTime(String title, double time) {
+    String timeStr = String.format("%.2f", time);
     this.printCommentary(title + timeStr + " Miliseconds");
   }
-  
+
   private void printCommentary(String commentary) {
     boolean isFailure = true;
     String prefix = isFailure ? "[SUCCESS] " : "[FAIL] ";
     String out = "Comment :=>> "; // + prefix
     out += commentary;
     VplLogger.getInstance().logLn(out);
-  } 
+  }
 
 }

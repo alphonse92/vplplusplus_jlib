@@ -43,7 +43,7 @@ public class ExecutionFile {
    */
   public ArrayList<Class> getExecutionFilesClasses() throws MalformedURLException, ClassNotFound {
     //default
-    if (this.files.length == 0) {
+    if (this.files == null || this.files.length == 0) {
       return new ArrayList();
     }
     //init elements
