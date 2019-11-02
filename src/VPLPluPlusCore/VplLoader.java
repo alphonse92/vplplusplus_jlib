@@ -58,8 +58,8 @@ public class VplLoader {
     ArrayList<Test> arrayOfTests = VplParserFactory.getParser().parse(classes);
     // 3. Send the array of vpl tests to the runner. 
     VplReportSuite report = VplRunnerFactory.getRunner().run(arrayOfTests);
-        
-    return report;
+
+    return report.print();
   }
 
 }

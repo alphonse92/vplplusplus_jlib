@@ -105,13 +105,8 @@ public class VplJRunner implements IVplRunner {
   }
 
   private void after(VplReportSuite suite) {
-
-    //get final execution time
     this.end_time = System.nanoTime();
-    //print results
     this.printTime("Executed in ", (this.end_time - this.start_time)  / 1e6 );
-    // print grade
-    this.printGrade(suite.getGrade());
   }
 
   private void printTime(String title,double time){
@@ -126,11 +121,5 @@ public class VplJRunner implements IVplRunner {
     out += commentary;
     System.out.println(out);
   } 
-
-  private void printGrade(double grade) {
-    System.out.print("Grade :=>> ");
-    System.out.printf("%.2f",grade);
-    System.out.println("");
-  }
 
 }

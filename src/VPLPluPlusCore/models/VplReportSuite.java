@@ -6,8 +6,6 @@
 package VPLPluPlusCore.models;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 /**
  *
@@ -31,11 +29,25 @@ public class VplReportSuite{
   
   public double getGrade(){
     
-    int totalOfReports = this.singleReports.size();
+    double totalOfReports = this.singleReports.size();
     double totalGrade = 0;
+    
     for(VplReport testReport:this.singleReports){
        totalGrade+=testReport.getGrade();
     }
+    System.out.println("total "+ String.valueOf(totalGrade)+ " " + String.valueOf(totalOfReports));
     return totalGrade / totalOfReports;
   }  
+  
+  public VplReportSuite print(){
+     this.printGrade(this.getGrade());
+     return this;
+  }
+  
+  private void printGrade(double grade) {
+    System.out.print("Grade :=>> ");
+    System.out.printf("%.2f",grade);
+    System.out.println("");
+  }
+  
 }

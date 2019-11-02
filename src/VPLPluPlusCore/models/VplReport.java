@@ -25,10 +25,10 @@ public class VplReport {
     System.out.println("Total tests: " + String.valueOf(totalOfTests) + " Approved: " + String.valueOf(approved));
     
     if (approved == 0) {
-      return 100;
+      return 0;
     }
     if (approved == totalOfTests) {
-      return 0;
+      return 100;
     }
    
     double percentage = (approved / totalOfTests) * 100;
