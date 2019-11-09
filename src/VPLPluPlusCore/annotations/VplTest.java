@@ -13,8 +13,8 @@ public @interface VplTest {
   
   String name() default "";
 
-  String created_by();
+  String created_by() default "";
 
-  String objective();
+  String objective() default "";
 
 }

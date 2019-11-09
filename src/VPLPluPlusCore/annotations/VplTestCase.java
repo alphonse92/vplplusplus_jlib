@@ -1,4 +1,4 @@
-package VPLPluPlusCore.annotations;
+  package VPLPluPlusCore.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,9 +11,9 @@ public @interface VplTestCase {
 
   String id();
     
-  String name();
+  String name() default "";
 
-  String objective();
+  String objective() default "";
 
   int grade() default 0;
 

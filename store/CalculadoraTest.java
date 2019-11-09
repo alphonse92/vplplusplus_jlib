@@ -1,5 +1,4 @@
-
-import org.junit.Test;
+  import org.junit.Test;
 import VPLPluPlusCore.Configurator;
 import static org.junit.Assert.assertEquals;
 import VPLPluPlusCore.annotations.VplPlusPlus;
@@ -8,18 +7,7 @@ import VPLPluPlusCore.annotations.VplTestCase;
 import org.junit.Before;
 
 @VplPlusPlus
-@VplTest(
-        //The name attribute must be unique at classpath, otherwise the parser
-        //will return an exception
-        project = "5dbde95c22b5259ca46f359d",
-        name = "Test de calculadora 1",
-        created_by = "Alejandro Molina",
-        //can be html
-        objective = "<ul>"
-        + "<li>Evaluar conocimientos básicos de Java</li>"
-        + "<li>Evaluar la aplicacion de operaciones aritméticas básicas</li>"
-        + "</ul>"
-)
+@VplTest(   project = "5dc73c10e19664adce6fb55f")
 public class CalculadoraTest{
 
   private Calculadora test;
@@ -29,82 +17,44 @@ public class CalculadoraTest{
     test = new Calculadora();
   }
 
+  //  This method is a vpl test case b/c it has the VplTestCase annotation
   @VplTestCase(
-          id = "5dbde95d22b5259ca46f35ab",
-          name = "Constructor",
-          objective = "El constructor es correcto",
-          grade = 13,
-          successMessage = "Usted sabe crear el constructor de la clase",
-          successReferenceLink = "https://www.google.com.co/search?q=como+sumar+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java",
-          failureMessage = "Usted no sabe crear el constructor de la clase",
-          failureReferenceLink = "https://www.google.com.co/search?q=como+sumar+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java"
+    // the id links this method with a test case in database
+    id = "5dc73c11e19664adce6fb571"
   )
   @Test(timeout = Configurator.TIMEOUT_VERY_LONG)
   public void testInstancia(){
     new Calculadora();
   }
 
-  @VplTestCase(
-          id = "5dbde95d22b5259ca46f35ab",
-          name = "sumar",
-          objective = "Sumar dos parámetros",
-          grade = 13,
-          successMessage = "Usted sabe sumar dos números en Java",
-          successReferenceLink = "https://www.google.com.co/search?q=como+sumar+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java",
-          failureMessage = "Usted no sabe sumar dos números en Java",
-          failureReferenceLink = "https://www.google.com.co/search?q=como+sumar+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java"
-  )
+  @VplTestCase(id = "5dc73c11e19664adce6fb571")
   @Test(timeout = Configurator.TIMEOUT_VERY_LONG)
   public void testSumar(){
     assertEquals(3, test.sumar(1, 2));
   }
 
-  @VplTestCase(
-          id = "5dbde95d22b5259ca46f35ab",
-          name = "restar",
-          objective = "Restar dos parámetros",
-          grade = 13,
-          successMessage = "Usted sabe restar dos números en Java",
-          successReferenceLink = "https://www.google.com.co/search?q=como+restar+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java",
-          failureMessage = "Usted no sabe restar dos números en Java",
-          failureReferenceLink = "https://www.google.com.co/search?q=como+restar+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java"
-  )
+  @VplTestCase(id = "5dc73c11e19664adce6fb571")
   @Test(timeout = Configurator.TIMEOUT_VERY_LONG)
   public void testRestar(){
     assertEquals(-1, test.restar(1, 2));
   }
 
-  @VplTestCase(
-          id = "5dbde95d22b5259ca46f35ab",
-          name = "Multiplicar",
-          objective = "Multiplicar dos parámetros",
-          grade = 13,
-          successMessage = "Usted sabe Multiplicar dos números en Java",
-          successReferenceLink = "https://www.google.com.co/search?q=como+Multiplicar+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java",
-          failureMessage = "Usted no sabe Multiplicar dos números en Java",
-          failureReferenceLink = "https://www.google.com.co/search?q=como+Multiplicar+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java"
-  )
+  @VplTestCase(id = "5dc73c11e19664adce6fb571")
   @Test(timeout = Configurator.TIMEOUT_VERY_LONG)
   public void testMultiplicar(){
     assertEquals(3, test.multiplicar(1, 2));
   }
 
-  @VplTestCase(
-          id = "5dbde95d22b5259ca46f35ab",
-          name = "Dividir",
-          objective = "Dividir dos parámetros",
-          grade = 13,
-          successMessage = "Usted sabe Dividir dos números en Java",
-          successReferenceLink = "https://www.google.com.co/search?q=como+Dividir+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java",
-          failureMessage = "Usted no sabe Dividir dos números en Java",
-          failureReferenceLink = "https://www.google.com.co/search?q=como+Dividir+dos+numeros+en+java&oq=como+sumar+dos+numeros+en+java"
-  )
+  @VplTestCase(id = "5dc73c11e19664adce6fb571")
   @Test(timeout = Configurator.TIMEOUT_VERY_LONG)
   public void testDividir(){
     double x = test.dividir(2, 2);
     assertEquals(1,x ,0);
   }
 
+  // the methods below arent a vpl ++ test cases
+  // b/c those methods does not have the @VplTestCase annotattion
+  // and will be omited by the vpl + runner
   @Test(timeout = Configurator.TIMEOUT_VERY_LONG)
   public void SingleJUnitMethod(){
     assertEquals(2, test.multiplicar(1, 2));
