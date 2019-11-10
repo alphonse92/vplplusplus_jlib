@@ -1,6 +1,6 @@
 # VPLPlusPlus-jlib
 
-Java library for VPL++ automatic JUnit Tests
+Java library to writte VPL plus plus tests
 
 VplJlib provides a set of interfaces and classes that allows to you execute Vpl tests. In few words, VplJlib is a wrapper of JUnit Runner.
 
