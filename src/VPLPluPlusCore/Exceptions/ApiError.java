@@ -20,8 +20,9 @@ public class ApiError extends VplException {
     VplLogger.getInstance().error(url);
   }
 
-  public ApiError(String url, HttpRequest request, String body, HttpResponse response) {
+  public ApiError(String url, String token, HttpRequest request, String body, HttpResponse response) {
     super("API throw an error ");
+    VplLogger.getInstance().error("Authorization token: " + token);
     VplLogger.getInstance().error("Request  line: " + request.getRequestLine());
     VplLogger.getInstance().error("Response line: " + response.getStatusLine());
     VplLogger.getInstance().error("Body: " + body);

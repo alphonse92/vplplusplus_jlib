@@ -87,24 +87,31 @@ Vpl Jlib runs by the CLI.
 
 ## Enviroment variables
 
-1. MOODLE_USER_ID: moodle user id of the class that are being tested by Jlib.
+1. ENV: environment set the development environment. By **default** is 'development`.  The development environment will output all iformation. The production environment only will show the percentage of tests that was passed.
+2. MOODLE_USER_ID: moodle user id of the class that are being tested by Jlib.
+3. API_URL: the url of VPL api
+4. API_TOKEN:  client JWT token for Vpl Jlib, see the administrator guide for the VPL api.
+
 
 ## Parameters
 
-1. (e): set the development environment. By **default** is 'development`.  The development environment will output all iformation. The production environment only will show the percentage of tests that was passed.
+1. (e): required if not was seted ENV env var
 2. (f): The value **default** is where the Jlib was executed. Otherwise, if you set it, it will take all the clases and tests from it value. For example `/path/of/my/test/and/clases` will take the tests and clases from `/path/of/my/test/and/clases`
-3. (u) : **required**, the url of VPL api
-4. (t) : **required** client JWT token for Vpl Jlib, see the administrator guide for the VPL api.
-5. (m) :**Only required if the env var MOODLE_USER_ID is no setted** moodle user id of the class that are being tested by Jlib.
-  
+3. (u) : required if not was seted API_URL env var
+4. (t) : required if not was seted API_TOKEN env var
+5. (m) : required if not was seted MOODLE_USER_ID env var
 
 ## Examples
 
 ### Development
 
 ```shell
+export ENV="development"
 export MOODLE_USER_ID=3
-java -jar VPLPlusPlus-jlib.jar -e "development" -f "./" -u "http://localhost:1337/api/v1/project/test/case/summary/" -t "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGM3M2Q4NmUxOTY2NGFkY2U2ZmI1ZTgiLCJpZCI6LTE1NzMzMzg1MDIzNTEsInVzZXJuYW1lIjoiYXBwIiwidHlwZSI6ImFwaV9jbGllbnQiLCJpYXQiOjE1NzMzMzg1MDJ9.Liim08kZkPPlT-v5yKW9-ywvWpCSmyBMns7i8vFbIIg"
+export API_URL=http://localhost:1337/api/v1/project/test/case/summary/
+export API_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGM3M2Q4NmUxOTY2NGFkY2U2ZmI1ZTgiLCJpZCI6LTE1NzMzMzg1MDIzNTEsInVzZXJuYW1lIjoiYXBwIiwidHlwZSI6ImFwaV9jbGllbnQiLCJpYXQiOjE1NzMzMzg1MDJ9.Liim08kZkPPlT-v5yKW9-ywvWpCSmyBMns7i8vFbIIg
+
+java -jar VPLPlusPlus-jlib.jar
 ```
 
 ### Production

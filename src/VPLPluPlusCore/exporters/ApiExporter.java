@@ -88,7 +88,7 @@ public class ApiExporter implements IExporter {
         VplLogger.getInstance().logLn("Response : " + status.toString());
 
         if (!this.isResponseOk(statuscode)) {
-          throw new ApiError(this.url, request, body, response);
+          throw new ApiError(this.url,this.token, request, body, response);
         }
 
       }
@@ -123,26 +123,35 @@ public class ApiExporter implements IExporter {
     options.addOption("e", "environment", true, "default e parameter of vplloader");
 
     CommandLineParser parser = new DefaultParser();
-    try {
-
-      CommandLine cmd = parser.parse(options, this.args);
-      this.url = cmd.getOptionValue("u");
-      this.token = cmd.getOptionValue("t");
-
-      Map<String, String> env = System.getenv();
-      String userOptionValue = cmd.getOptionValue("m");
-      String userFromEnv = env.get("MOODLE_USER_ID");
-      this.moodle_user = userOptionValue == null ? userFromEnv : userOptionValue;
-      VplLogger.getInstance().logLn("User id: " + String.valueOf(this.moodle_user));
-      if (this.moodle_user == null) {
-        throw new ApiExporterBadParameter(options, "moodle_user", "Moodle user is required. Was not passed by command line or enviroment variables (MOODLE_USER_ID)");
-      }
-
-      return this;
-
-    } catch (UnrecognizedOptionException ex) {
-      throw new ApiExporterBadParameter(options);
+    CommandLine cmd = parser.parse(options, this.args);
+    
+    Map<String, String> env = System.getenv();
+    
+    String userOptionValue = cmd.getOptionValue("m");
+    String userFromEnv = env.get("MOODLE_USER_ID");
+    this.moodle_user = userOptionValue == null ? userFromEnv : userOptionValue;
+    
+    String urlFromEnv = env.get("API_URL");
+    String urlFromOpts = cmd.getOptionValue("u");
+    this.url = urlFromOpts == null ? urlFromEnv : urlFromOpts;
+    
+    String tokenFromEnv = env.get("API_TOKEN");
+    String tokenFromOpts = cmd.getOptionValue("t");
+    this.token = tokenFromOpts == null ? tokenFromEnv : tokenFromOpts;
+    
+    VplLogger.getInstance().logLn("User id: " + String.valueOf(this.moodle_user));
+    
+    if (this.moodle_user == null) {
+      throw new ApiExporterBadParameter(options, "MOODLE_USER_ID (-m)","Moodle user id was no seted in environment variables or passed down by arguments");
     }
+    if (this.url  == null) {
+      throw new ApiExporterBadParameter(options, "API_URL (-u)","Api url was no seted in environment variables or passed down by arguments");
+    }
+    if (this.token == null) {
+      throw new ApiExporterBadParameter(options, "API_TOKEN (-t)", "Api token was no seted in environment variables or passed down by arguments");
+    }
+    
+    return this;
 
   }
 

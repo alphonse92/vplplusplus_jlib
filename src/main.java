@@ -63,19 +63,17 @@ public class main {
     VplLogger logger = VplLogger.getInstance();
     try {
 
+      Map<String, String> env = System.getenv();
       VplCli cli = new VplCli(args);
-      String environment = cli.getEnvironment();
+
+      String environmentFromEnv = env.get("ENV");
+      String enviromentFromOpts = cli.getEnvironment();
+      String environment = environmentFromEnv == null ? enviromentFromOpts : enviromentFromOpts;
+      
       logger.setEnvironment(environment);
       VplLoaderExecutionsFiles files = cli.getFiles();
 
       String x = null;
-      
-      Map<String, String> env = System.getenv();
-        for (String envName : env.keySet()) {
-            System.out.format("%s=%s%n",
-                              envName,
-                              env.get(envName));
-        }
 
       if (files != null || files.size() > 0) {
         logger.logLn("Running VPL Runner from " + Files.EXECUTION_PATH);
