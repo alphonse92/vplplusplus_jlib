@@ -70,7 +70,7 @@ public class ApiExporter implements IExporter {
       for (VplReport singleReport : reports) {
 
         HttpPost request = new HttpPost(this.url);
-        String body = singleReport.toJson("1");
+        String body = singleReport.toJson(this.moodle_user);
         request.setEntity(new StringEntity(body));
 
         request.setHeader("Accept", "application/json");
@@ -133,7 +133,7 @@ public class ApiExporter implements IExporter {
       String userOptionValue = cmd.getOptionValue("m");
       String userFromEnv = env.get("MOODLE_USER_ID");
       this.moodle_user = userOptionValue == null ? userFromEnv : userOptionValue;
-
+      VplLogger.getInstance().logLn("User id: " + String.valueOf(this.moodle_user));
       if (this.moodle_user == null) {
         throw new ApiExporterBadParameter(options, "moodle_user", "Moodle user is required. Was not passed by command line or enviroment variables (MOODLE_USER_ID)");
       }
