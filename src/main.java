@@ -7,6 +7,7 @@ import VPLPluPlusCore.models.VplLoaderExecutionsFiles;
 import VPLPluPlusCore.utils.Files;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.util.Map;
 import org.apache.commons.cli.ParseException;
 
 /**
@@ -68,6 +69,13 @@ public class main {
       VplLoaderExecutionsFiles files = cli.getFiles();
 
       String x = null;
+      
+      Map<String, String> env = System.getenv();
+        for (String envName : env.keySet()) {
+            System.out.format("%s=%s%n",
+                              envName,
+                              env.get(envName));
+        }
 
       if (files != null || files.size() > 0) {
         logger.logLn("Running VPL Runner from " + Files.EXECUTION_PATH);

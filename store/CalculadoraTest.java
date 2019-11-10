@@ -1,10 +1,9 @@
-  import org.junit.Test;
-import VPLPluPlusCore.Configurator;
 import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import VPLPluPlusCore.Configurator;
 import VPLPluPlusCore.annotations.VplPlusPlus;
 import VPLPluPlusCore.annotations.VplTest;
 import VPLPluPlusCore.annotations.VplTestCase;
-import org.junit.Before;
 
 @VplPlusPlus
 @VplTest(   project = "5dc73c10e19664adce6fb55f")

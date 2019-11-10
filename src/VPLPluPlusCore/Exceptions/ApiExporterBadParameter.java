@@ -14,15 +14,14 @@ import org.apache.commons.cli.Options;
  */
 public class ApiExporterBadParameter extends VplException {
 
-  public ApiExporterBadParameter(Options options,String param) {
-    super("Api exporter bad parameters");
+  public ApiExporterBadParameter(Options options, String param, String message) {
+    super("Bad value for " + param + " parameter:" + message);
     HelpFormatter formater = new HelpFormatter();
     formater.printHelp("Api exporter help", options);
-    System.err.println("Missing parameter " + param);
   }
 
   public ApiExporterBadParameter(Options options) {
-    super("Api exporter bad parameters");
+    super("Api exporter bad parameters exception");
     HelpFormatter formater = new HelpFormatter();
     formater.printHelp("Api exporter help", options);
   }

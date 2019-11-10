@@ -16,6 +16,7 @@ import VPLPluPlusCore.models.VplReport;
 import VPLPluPlusCore.models.VplReportSuite;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import java.util.concurrent.Future;
@@ -127,10 +128,14 @@ public class ApiExporter implements IExporter {
       CommandLine cmd = parser.parse(options, this.args);
       this.url = cmd.getOptionValue("u");
       this.token = cmd.getOptionValue("t");
-      this.moodle_user = cmd.getOptionValue('m');
+
+      Map<String, String> env = System.getenv();
+      String userOptionValue = cmd.getOptionValue("m");
+      String userFromEnv = env.get("MOODLE_USER_ID");
+      this.moodle_user = userOptionValue == null ? userFromEnv : userOptionValue;
 
       if (this.moodle_user == null) {
-        throw new ApiExporterBadParameter(options, "moodle_user");
+        throw new ApiExporterBadParameter(options, "moodle_user", "Moodle user is required. Was not passed by command line or enviroment variables (MOODLE_USER_ID)");
       }
 
       return this;
