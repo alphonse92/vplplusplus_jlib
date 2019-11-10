@@ -1,0 +1,1 @@
+export MOODLE_USER_ID=3
