@@ -1,4 +1,5 @@
 
+import VPLPluPlusCore.APP;
 import VPLPluPlusCore.Exceptions.VplTestException;
 import VPLPluPlusCore.VplLoader;
 import VPLPluPlusCore.cli.VplCli;
@@ -68,8 +69,13 @@ public class main {
 
       String environmentFromEnv = env.get("ENV");
       String enviromentFromOpts = cli.getEnvironment();
-      String environment = environmentFromEnv == null ? enviromentFromOpts : enviromentFromOpts;
-      
+
+      String environment = environmentFromEnv != null
+              ? environmentFromEnv
+              : enviromentFromOpts != null
+                      ? enviromentFromOpts
+                      : APP.ENV_DEF;
+
       logger.setEnvironment(environment);
       VplLoaderExecutionsFiles files = cli.getFiles();
 

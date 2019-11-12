@@ -5,7 +5,6 @@
  */
 package VPLPluPlusCore.cli;
 
-import VPLPluPlusCore.APP;
 import VPLPluPlusCore.models.VplLoaderExecutionsFiles;
 import VPLPluPlusCore.models.ExecutionFile;
 import VPLPluPlusCore.utils.Files;
@@ -55,10 +54,7 @@ public class VplCli {
   }
 
   public String getEnvironment() {
-
-    String environment = this.cmd.getOptionValue("e");
-    String val = environment == null ? APP.ENV_DEF : environment;
-    return val;
+    return this.cmd.getOptionValue("e");
   }
 
   private void help() {
