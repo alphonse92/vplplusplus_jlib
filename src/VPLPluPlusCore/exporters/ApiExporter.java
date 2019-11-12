@@ -54,6 +54,10 @@ public class ApiExporter implements IExporter {
   @Override
   public void export() throws VplException, NoUrlException, ApiUnreacheable {
 
+    if(this.moodle_user == null){
+      return;
+    }
+    
     if (this.url == null) {
       throw new NoUrlException();
     }
@@ -140,10 +144,12 @@ public class ApiExporter implements IExporter {
     this.token = tokenFromOpts == null ? tokenFromEnv : tokenFromOpts;
     
     VplLogger.getInstance().logLn("User id: " + String.valueOf(this.moodle_user));
-    
-    if (this.moodle_user == null) {
-      throw new ApiExporterBadParameter(options, "MOODLE_USER_ID (-m)","Moodle user id was no seted in environment variables or passed down by arguments");
+
+    if (this.moodle_user  == null) {
+      VplLogger.getInstance().logLn("User id¡ is null. Its looks is a teacher testing the activity :)");
+      return this;
     }
+    
     if (this.url  == null) {
       throw new ApiExporterBadParameter(options, "API_URL (-u)","Api url was no seted in environment variables or passed down by arguments");
     }
