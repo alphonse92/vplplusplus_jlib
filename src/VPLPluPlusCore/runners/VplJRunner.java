@@ -123,7 +123,7 @@ public class VplJRunner implements IVplRunner {
   private void printCommentary(String commentary) {
     boolean isFailure = true;
     String prefix = isFailure ? "[SUCCESS] " : "[FAIL] ";
-    String out = "Comment :=>> "; // + prefix
+    String out = "Comment: = >>"; // + prefix
     out += commentary;
     VplLogger.getInstance().logLn(out);
   }
