@@ -17,15 +17,14 @@ public class ApiError extends VplException {
 
   public ApiError(String url) {
     super("API throw an error ");
-    VplLogger.getInstance().error(url);
+    VplLogger.getInstance().errorDev(url);
   }
 
   public ApiError(String url, String token, HttpRequest request, String body, HttpResponse response) {
-    super("API throw an error ");
-    VplLogger.getInstance().error("Authorization token: " + token);
-    VplLogger.getInstance().error("Request  line: " + request.getRequestLine());
-    VplLogger.getInstance().error("Response line: " + response.getStatusLine());
-    VplLogger.getInstance().error("Body: " + body);
+    super("API throw an error: " + body);
+    VplLogger.getInstance().errorDev("Authorization token: " + token);
+    VplLogger.getInstance().errorDev("Request  line: " + request.getRequestLine());
+    VplLogger.getInstance().errorDev("Response line: " + response.getStatusLine());
+ 
   }
-
 }

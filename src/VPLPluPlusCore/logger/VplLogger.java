@@ -66,7 +66,7 @@ public class VplLogger {
     System.out.print(str);
   }
 
-  public void error(String string) {
+  public void errorDev(String string) {
     if (!this.isDev()) {
       return;
     }

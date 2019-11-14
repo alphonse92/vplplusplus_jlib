@@ -17,14 +17,14 @@ public class ApiUnreacheable extends VplException {
 
   public ApiUnreacheable(String url) {
     super("API is unreacheable ");
-    VplLogger.getInstance().error(url);
+    VplLogger.getInstance().errorDev(url);
   }
 
   public ApiUnreacheable(String url, HttpRequest request, String body, HttpResponse response) {
     super("API is unreacheable ");
-    VplLogger.getInstance().error("Request  line: " + request.getRequestLine());
-    VplLogger.getInstance().error("Response line: " + response.getStatusLine());
-    VplLogger.getInstance().error("Body: " + body);
+    VplLogger.getInstance().errorDev("Request  line: " + request.getRequestLine());
+    VplLogger.getInstance().errorDev("Response line: " + response.getStatusLine());
+    VplLogger.getInstance().errorDev("Body: " + body);
   }
 
 }
