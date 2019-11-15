@@ -1,68 +1,67 @@
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
-import VPLPluPlusCore.Configurator;
+/**
+* VplJUnit version 1.0
+* This class was generated automatically, and adds 
+* the VPL++ api to improve your tests with extra functionalities.
+* 
+* You can modify this class manually, please review the
+* VplJunit runner documentation of vpl ++  to know
+* how to improve your JUnit tests with vpl
+* 
+* If you need help please contact to the Vpl++ creator
+*/
+
 import VPLPluPlusCore.annotations.VplPlusPlus;
 import VPLPluPlusCore.annotations.VplTest;
 import VPLPluPlusCore.annotations.VplTestCase;
 
-@VplPlusPlus
-@VplTest(   project = "5dcae8d03bd8e10025c77fff")
-public class CalculadoraTest{
+// set here your imports
+// YOU NEED TO SET YOUR IMPORTS MANUALLY 
 
-  private Calculadora test;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import org.junit.Before;
+
+// end of your imports
+
+@VplPlusPlus
+@VplTest(project = "5dcdd9d9bf2717001ce0c96c")
+public class CalculadoraTest{
+  
+   private Calculadora test;
 
   @Before
   public void setUp(){
     test = new Calculadora();
   }
+	
 
-  //  This method is a vpl test case b/c it has the VplTestCase annotation
-  @VplTestCase(
-    // the id links this method with a test case in database
-    id = "5dcae8d13bd8e10025c78009"
-  )
+  
+  @VplTestCase(id = "5dcdd9d9bf2717001ce0c96e")
   @Test()
-  public void testInstancia(){
-    new Calculadora();
+  public void SumarTest(){     
+     assertEquals(3, test.sumar(1, 2));
   }
 
-  @VplTestCase(id = "5dcae8d13bd8e10025c78009")
-  @Test()
-  public void testSumar(){
-    assertEquals(3, test.sumar(1, 2));
-  }
 
-  @VplTestCase(id = "5dcae8d13bd8e10025c78009")
+  @VplTestCase(id = "5dcdd9d9bf2717001ce0c96f")
   @Test()
-  public void testRestar(){
-    assertEquals(-1, test.restar(1, 2));
-  }
-
-  @VplTestCase(id = "5dcae8d13bd8e10025c78009")
-  @Test()
-  public void testMultiplicar(){
-    assertEquals(3, test.multiplicar(1, 2));
-  }
-
-  @VplTestCase(id = "5dcae8d13bd8e10025c78009")
-  @Test()
-  public void testDividir(){
-    double x = test.dividir(2, 2);
-    assertEquals(1,x ,0);
-  }
-
-  // the methods below arent a vpl ++ test cases
-  // b/c those methods does not have the @VplTestCase annotattion
-  // and will be omited by the vpl + runner
-  @Test()
-  public void SingleJUnitMethod(){
+  public void MultiplicarTest(){     
     assertEquals(2, test.multiplicar(1, 2));
   }
-  
+
+
+  @VplTestCase(id = "5dcdd9d9bf2717001ce0c970")
   @Test()
-  public void SingleJUnitMethodThatFails(){
-    assertEquals(3, test.multiplicar(1, 2));
+  public void DividirTest(){     
+    double x = test.dividir(2, 2);
+assertEquals(1,x ,0);
+  }
+
+
+  @VplTestCase(id = "5dcdd9d9bf2717001ce0c971")
+  @Test()
+  public void RestarTest(){     
+     assertEquals(-1, test.restar(1, 2));
   }
 
 }

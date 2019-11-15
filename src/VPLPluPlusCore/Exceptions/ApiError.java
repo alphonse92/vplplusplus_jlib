@@ -22,7 +22,7 @@ public class ApiError extends VplException {
   }
 
   public ApiError(String url, String token, HttpRequest request, String body, HttpResponse response) throws IOException {
-    super("API throw an error " +EntityUtils.toString(response.getEntity(), "UTF-8"));
+    super("API throw an error: " +EntityUtils.toString(response.getEntity(), "UTF-8"));
     VplLogger.getInstance().errorDev("Authorization token: " + token);
     VplLogger.getInstance().errorDev("Request  line: " + request.getRequestLine());
     VplLogger.getInstance().errorDev("Response line: " + response.getStatusLine());
