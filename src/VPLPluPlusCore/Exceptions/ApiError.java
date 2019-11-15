@@ -6,9 +6,10 @@
 package VPLPluPlusCore.Exceptions;
 
 import VPLPluPlusCore.logger.VplLogger;
+import java.io.IOException;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
-
+import org.apache.http.util.EntityUtils;
 /**
  *
  * @author elieceralejandromolinavergel
@@ -20,12 +21,12 @@ public class ApiError extends VplException {
     VplLogger.getInstance().errorDev(url);
   }
 
-  public ApiError(String url, String token, HttpRequest request, String body, HttpResponse response) {
-    super("API throw an error" +response.getEntity().getContent().toString());
+  public ApiError(String url, String token, HttpRequest request, String body, HttpResponse response) throws IOException {
+    super("API throw an error " +EntityUtils.toString(response.getEntity(), "UTF-8"));
     VplLogger.getInstance().errorDev("Authorization token: " + token);
     VplLogger.getInstance().errorDev("Request  line: " + request.getRequestLine());
     VplLogger.getInstance().errorDev("Response line: " + response.getStatusLine());
-    VplLogger.getInstance().errorDev("Body: " + body);  
+    VplLogger.getInstance().errorDev("Body: " + body);
   }
 
 }
