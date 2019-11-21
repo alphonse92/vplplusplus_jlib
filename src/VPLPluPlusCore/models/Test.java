@@ -22,6 +22,10 @@ public class Test implements VplTest {
 
   private int approved = 0;
   private int maxGrade = 0;
+  private int gradeLost = 0;
+  
+  private boolean evaluateByAvg = false;
+  
   private final Class vplTestClass;
   private final VplTest annotation;
   private final HashMap<String, TestCase> testCases;
@@ -41,20 +45,25 @@ public class Test implements VplTest {
   /**
    * Method for add testDescriptor to VplTest
    *
-   * @param testDescriptor testDescriptor to save
+   * @param testcase testDescriptor to save
    * @throws VPLPluPlusCore.Exceptions.VplTestException
    */
-  public void addTestCase(TestCase testDescriptor) throws VplTestException {
+  public void addTestCase(TestCase testcase) throws VplTestException {
 
-//valide if exist a method with same id
-    String methodName = testDescriptor.getMethod().getName();
+    //valide if exist a method with same id
+    String methodName = testcase.getMethod().getName();
+    int grade = testcase.grade();
+
+    // if grade is setted
+    if (grade == 0) {
+      this.evaluateByAvg = true;
+    }
 
     if (!this.testCases.containsKey(methodName)) {
 
       //if doesnt exist a method with same id then put it in hashmap
-      this.testCases.put(methodName, testDescriptor);
-      this.maxGrade += testDescriptor.grade();
-
+      this.maxGrade += grade;
+      this.testCases.put(methodName, testcase);
       this.setTestCaseSuccess(methodName);
 
     } else {
@@ -63,7 +72,7 @@ public class Test implements VplTest {
     }
   }
 
-  public TestCase getMethodDescriptor(String methodName) {
+  private TestCase getTestCase(String methodName) {
     return this.testCases.get(methodName);
   }
 
@@ -72,16 +81,17 @@ public class Test implements VplTest {
   }
 
   public void setTestCaseSuccess(String method) {
-    this.getMethodDescriptor(method).setSuccess(true);
+    this.getTestCase(method).setSuccess(true);
     this.approved += 1;
   }
 
   public void setTestCaseFailure(String method) {
-    
-    TestCase testCase = this.getMethodDescriptor(method);
-    
+
+    TestCase testCase = this.getTestCase(method);
+
     if (testCase != null) {
       this.approved -= 1;
+      this.gradeLost += testCase.grade();
       testCase.setSuccess(false);
     }
   }
@@ -98,6 +108,10 @@ public class Test implements VplTest {
     return this.testCases.size();
   }
 
+  public boolean shouldEvaluateByAvg() {
+    return this.evaluateByAvg;
+  }
+
   @Override
   public String project() {
     return this.annotation.project();
@@ -105,7 +119,7 @@ public class Test implements VplTest {
 
   @Override
   public String name() {
-    return this.annotation.name();
+    return this.vplTestClass.getName();
   }
 
   @Override
@@ -117,8 +131,12 @@ public class Test implements VplTest {
   public String objective() {
     return this.annotation.objective();
   }
+  
+  public int getGradeLost(){
+    return this.gradeLost;
+  }
 
-  public int maxGrade() {
+  public int getMaxGrade() {
     return this.maxGrade;
   }
 
@@ -137,7 +155,7 @@ public class Test implements VplTest {
 
     return jsonOfTestCases;
   }
-  
+
   public static boolean isTheClassAVplTest(Class classLoadedFromExecutionFile) {
     return classLoadedFromExecutionFile
             .isAnnotationPresent(VplPlusPlus.class)

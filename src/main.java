@@ -79,8 +79,6 @@ public class main {
       logger.setEnvironment(environment);
       VplLoaderExecutionsFiles files = cli.getFiles();
 
-      String x = null;
-
       if (files != null || files.size() > 0) {
         logger.logLn("Running VPL Runner from " + Files.EXECUTION_PATH);
         VplLoader

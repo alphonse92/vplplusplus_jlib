@@ -5,6 +5,7 @@
  */
 package VPLPluPlusCore.models;
 
+import VPLPluPlusCore.logger.VplLogger;
 import java.util.ArrayList;
 
 /**
@@ -39,8 +40,12 @@ public class VplReportSuite {
     for (VplReport testReport : this.singleReports) {
       totalGrade += testReport.getGrade();
     }
-
-    return totalGrade / totalOfReports;
+    
+    double grade = totalGrade / totalOfReports;
+    VplLogger logger = VplLogger.getInstance();
+    logger.logLn("Final grade: "+grade);
+    return grade;
+    
   }
   
 

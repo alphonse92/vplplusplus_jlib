@@ -1,3 +1,4 @@
+
 /**
 * VplJUnit version 1.0
 * This class was generated automatically, and adds 
@@ -25,7 +26,7 @@ import org.junit.Before;
 
 @VplPlusPlus
 @VplTest(project = "5dcdd9d9bf2717001ce0c96c")
-public class CalculadoraTest{
+public class CalculadoraTestWithGrade{
   
    private Calculadora test;
 
@@ -46,11 +47,11 @@ public class CalculadoraTest{
   @VplTestCase(id = "5dcdd9d9bf2717001ce0c96f", grade = 15)
   @Test()
   public void MultiplicarTest(){     
-    assertEquals(2222, test.multiplicar(1, 2));
+    assertEquals(2, test.multiplicar(1, 2));
   }
 
 
-  @VplTestCase(id = "5dcdd9d9bf2717001ce0c970")
+  @VplTestCase(id = "5dcdd9d9bf2717001ce0c970", grade = 20)
   @Test()
   public void DividirTest(){     
     double x = test.dividir(2, 2);
@@ -63,6 +64,5 @@ assertEquals(1,x ,0);
   public void RestarTest(){     
      assertEquals(-1, test.restar(1, 2));
   }
-
 
 }
