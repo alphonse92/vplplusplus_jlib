@@ -37,21 +37,21 @@ public class CalculadoraTestWithGrade{
 	
 
   
-  @VplTestCase(id = "5dcdd9d9bf2717001ce0c96e", grade = 45)
+  @VplTestCase(id = "5dcdd9d9bf2717001ce0c96e", grade = 5)
   @Test()
   public void SumarTest(){     
-     assertEquals(3, test.sumar(1, 2));
+     assertEquals(2, test.sumar(1, 2));
   }
 
 
-  @VplTestCase(id = "5dcdd9d9bf2717001ce0c96f", grade = 15)
+  @VplTestCase(id = "5dcdd9d9bf2717001ce0c96f", grade = 5)
   @Test()
   public void MultiplicarTest(){     
     assertEquals(2, test.multiplicar(1, 2));
   }
 
 
-  @VplTestCase(id = "5dcdd9d9bf2717001ce0c970", grade = 20)
+  @VplTestCase(id = "5dcdd9d9bf2717001ce0c970", grade = 5)
   @Test()
   public void DividirTest(){     
     double x = test.dividir(2, 2);
@@ -59,7 +59,7 @@ assertEquals(1,x ,0);
   }
 
 
-  @VplTestCase(id = "5dcdd9d9bf2717001ce0c971", grade = 20)
+  @VplTestCase(id = "5dcdd9d9bf2717001ce0c971", grade = 5)
   @Test()
   public void RestarTest(){     
      assertEquals(-1, test.restar(1, 2));

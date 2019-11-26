@@ -43,7 +43,7 @@ public class VplReport {
             ? 100
             : gradeLost == maxGrade
                     ? 0
-                    : (gradeLost / maxGrade) / 100;
+                    : (gradeLost / maxGrade) * 100;
     return percentage;
   }
 
