@@ -37,7 +37,7 @@ public class CalculadoraTestWithGrade{
 	
 
   
-  @VplTestCase(id = "5dcdd9d9bf2717001ce0c96e", grade = 5)
+  @VplTestCase(id = "5dcdd9d9bf2717001ce0c96e", grade = 150)
   @Test()
   public void SumarTest(){     
      assertEquals(2, test.sumar(1, 2));
