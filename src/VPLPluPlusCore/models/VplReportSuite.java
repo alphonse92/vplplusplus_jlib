@@ -61,7 +61,6 @@ public class VplReportSuite {
     
     double grade = totalGrade / totalOfReports;
     VplLogger logger = VplLogger.getInstance();
-    logger.logLn("Final grade: "+grade);
     return grade;
     
   }
