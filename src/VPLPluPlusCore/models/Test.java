@@ -11,6 +11,7 @@ import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import VPLPluPlusCore.annotations.VplTest;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -41,6 +42,11 @@ public class Test implements VplTest {
   public Test() {
   }
 
+  public ArrayList<TestCase> getArrayOfTestCases(){
+    Collection<TestCase> values = this.testCases.values(); 
+    return new ArrayList<TestCase>(values);
+  }
+  
   public boolean isNoCompiled() {
     return this.is_compilation_error;
   }

@@ -19,6 +19,10 @@ public class VplReport {
   public VplReport(Test vplTest) {
     this.vplTest = vplTest;
   }
+  
+  public Test getTest(){
+    return this.vplTest;
+  }
 
   public static VplReport getReportForCompilationError() {
     Test test = new Test();

@@ -6,6 +6,9 @@
 package VPLPluPlusCore.exporters;
 
 import VPLPluPlusCore.interfaces.IExporter;
+import VPLPluPlusCore.models.Test;
+import VPLPluPlusCore.models.TestCase;
+import VPLPluPlusCore.models.VplReport;
 import VPLPluPlusCore.models.VplReportSuite;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -29,13 +32,41 @@ public class Printer implements IExporter {
     this.printGrade(grade);
   }
 
+  private void printCommentary(String text) {
+    System.out.println("Comment :=>> " + text);
+  }
+
+  private void printCommentariesForCompilationError() {
+    this.printCommentary("Compilation time error");
+  }
+
+  private void printTestCasesResults() {
+    for (VplReport singleReport : this.suite.getReports()) {
+      Test test = singleReport.getTest();
+      this.printCommentary(" === " + test.getVplTestClass().getName() + " === ");
+      for (TestCase testcase : test.getArrayOfTestCases()) {
+        String success = "has been passed";
+        String fail = "has been failed";
+        String test_case_name = testcase.getMethod().getName();
+        String commentary = "The method " + test_case_name + " " + (testcase.isSuccess() ? success : fail);
+        this.printCommentary(commentary);
+      }
+      this.printCommentary(" ");
+    }
+  }
+
   private void printGrade(double grade) {
 
     DecimalFormat df2 = new DecimalFormat("#.##");
     df2.setRoundingMode(RoundingMode.DOWN);
+
+    if (this.suite.getCompilationError()) {
+      this.printCommentariesForCompilationError();
+    } else {
+      this.printTestCasesResults();
+    }
     System.out.println("Comment :=>> Final grade: " + grade);
     System.out.println("Grade :=>> " + df2.format(grade));
-
   }
 
   @Override
