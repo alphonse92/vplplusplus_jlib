@@ -27,7 +27,7 @@ public class Printer implements IExporter {
   }
 
   private void printGrade(double grade) {
-    System.out.print("Grade: = >>");
+    System.out.print("Grade :=>> ");
     System.out.printf("%.2f", grade);
     System.out.println("");
   }
