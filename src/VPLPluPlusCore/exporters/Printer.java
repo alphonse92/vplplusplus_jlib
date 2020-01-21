@@ -45,10 +45,12 @@ public class Printer implements IExporter {
       Test test = singleReport.getTest();
       this.printCommentary(" === " + test.getVplTestClass().getName() + " === ");
       for (TestCase testcase : test.getArrayOfTestCases()) {
-        String success = "has been passed";
-        String fail = "has been failed";
+        String success = "";
+        String fail = "<b>[FAIL]</b> ";
         String test_case_name = testcase.getMethod().getName();
-        String commentary = "The method " + test_case_name + " " + (testcase.isSuccess() ? success : fail);
+        String textCommentary = (testcase.isSuccess() ? success : fail) + test_case_name;
+        String gradeLabel = (testcase.isSuccess() ? String.valueOf(testcase.grade()) : "0") + " PTS";
+        String commentary = textCommentary + " " + gradeLabel;
         this.printCommentary(commentary);
       }
       this.printCommentary(" ");
