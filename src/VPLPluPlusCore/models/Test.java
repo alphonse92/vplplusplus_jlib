@@ -23,18 +23,30 @@ public class Test implements VplTest {
   private int approved = 0;
   private int maxGrade = 0;
   private int gradeLost = 0;
-  
-  private boolean evaluateByAvg = false;
-  
-  private final Class vplTestClass;
-  private final VplTest annotation;
-  private final HashMap<String, TestCase> testCases;
 
+  private boolean evaluateByAvg = false;
+
+  private Class vplTestClass = null;
+  private VplTest annotation = null;
+  private HashMap<String, TestCase> testCases = new HashMap();
+  private boolean is_compilation_error = false;
+
+  public static String NO_PROJECT_SETTED="PROJECT_ID_WAS_NOT_FOUND";
+  
   public Test(Class vplTestClass, VplTest annotation) {
-    this.testCases = new HashMap();
     this.annotation = annotation;
     this.vplTestClass = vplTestClass;
+  }
 
+  public Test() {
+  }
+
+  public boolean isNoCompiled() {
+    return this.is_compilation_error;
+  }
+
+  public void setNoCompiled(boolean val) {
+    this.is_compilation_error = val;
   }
 
   public static Test create(Class _class_) {
@@ -117,6 +129,16 @@ public class Test implements VplTest {
     return this.annotation.project();
   }
 
+  public String getProjectId(String project_id) throws VplTestException {
+    if(project_id !=null) return project_id;
+    
+    if(this.annotation == null) throw new VplTestException(Test.NO_PROJECT_SETTED);
+    if(this.project() == null) throw new VplTestException(Test.NO_PROJECT_SETTED);
+    
+    return this.project();
+    
+  }
+
   @Override
   public String name() {
     return this.vplTestClass.getName();
@@ -131,8 +153,8 @@ public class Test implements VplTest {
   public String objective() {
     return this.annotation.objective();
   }
-  
-  public int getGradeLost(){
+
+  public int getGradeLost() {
     return this.gradeLost;
   }
 
@@ -164,14 +186,31 @@ public class Test implements VplTest {
                     .enabled();
   }
 
-  public String toJson(String moodle_user) {
-    String project = this.project();
+  private String getJson(String moodle_user, String project_id) throws VplTestException {
+    String project = this.getProjectId(project_id);
     ArrayList<String> jsons = this.getJsonOfTestCases();
     String data = String.join(",", jsons);
     return "{\"moodle_user\": " + moodle_user + ","
             + "\"project\": \"" + project + "\","
             + "\"data\":[" + data + "]"
             + "}";
+  }
+
+  private String getJsonForCompilationError(String moodle_user, String project_id) throws VplTestException {
+    String project = this.getProjectId(project_id);
+    ArrayList<String> jsons = this.getJsonOfTestCases();
+    String data = String.join(",", jsons);
+    return "{\"moodle_user\": " + moodle_user + ","
+            + "\"project\": \"" + project + "\","
+            + "\"compilation_error\": true ,"
+            + "\"data\":[]"
+            + "}";
+  }
+
+  public String toJson(String moodle_user, String project_id) throws VplTestException {
+    return this.is_compilation_error
+            ? this.getJsonForCompilationError(moodle_user, project_id)
+            : this.getJson(moodle_user, project_id);
   }
 
 }

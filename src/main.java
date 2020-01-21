@@ -75,15 +75,21 @@ public class main {
               : enviromentFromOpts != null
                       ? enviromentFromOpts
                       : APP.ENV_DEF;
-
       logger.setEnvironment(environment);
+
+      boolean compilation_error = env.get("COMPILATION_ERROR") != null;
+      VplLoader loader = VplLoader.getInstance(environment);
+
+      if (compilation_error) {
+        loader.sendCompilationError(args);
+        return;
+      }
+
       VplLoaderExecutionsFiles files = cli.getFiles();
 
       if (files != null || files.size() > 0) {
         logger.logLn("Running VPL Runner from " + Files.EXECUTION_PATH);
-        VplLoader
-                .getInstance(environment)
-                .run(args, files);
+        loader.run(args, files);
       }
 
     } catch (VplTestException

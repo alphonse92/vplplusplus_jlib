@@ -5,6 +5,7 @@
  */
 package VPLPluPlusCore;
 
+import VPLPluPlusCore.Exceptions.ApiExporterBadParameter;
 import VPLPluPlusCore.Exceptions.VplException;
 import VPLPluPlusCore.Exceptions.VplTestException;
 import VPLPluPlusCore.exporters.ApiExporter;
@@ -20,6 +21,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.cli.ParseException;
 
 /**
  *
@@ -77,7 +79,16 @@ public class VplLoader {
 
     return report;
   }
-
+  
+  public void sendCompilationError(String [] args) throws ParseException, ApiExporterBadParameter{
+    ArrayList<IExporter> exporters = new ArrayList();
+    VplReportSuite report = VplReportSuite.getReportForCompilationError();
+    exporters.add(new Printer(report).setArgs(args));
+    exporters.add(new ApiExporter(report).setArgs(args));
+    // export all
+    this.export(exporters);
+  }
+  
   /**
    * This method take an array of exporters and run all exporters
    *

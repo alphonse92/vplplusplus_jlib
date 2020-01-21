@@ -5,6 +5,7 @@
  */
 package VPLPluPlusCore.models;
 
+import VPLPluPlusCore.Exceptions.VplTestException;
 import VPLPluPlusCore.logger.VplLogger;
 
 /**
@@ -17,6 +18,12 @@ public class VplReport {
 
   public VplReport(Test vplTest) {
     this.vplTest = vplTest;
+  }
+
+  public static VplReport getReportForCompilationError() {
+    Test test = new Test();
+    test.setNoCompiled(true);
+    return new VplReport(test);
   }
 
   private double getGradeByAvg() {
@@ -55,9 +62,13 @@ public class VplReport {
     logger.logLn("Gradding" + this.vplTest.name() + ": " + String.valueOf(grade));
     return grade;
   }
+  
+  public String toJson(String moodle_user) throws VplTestException {
+    return this.vplTest.toJson(moodle_user, null);
+  }
 
-  public String toJson(String moodle_user) {
-    return this.vplTest.toJson(moodle_user);
+  public String toJson(String moodle_user, String project_id) throws VplTestException {
+    return this.vplTest.toJson(moodle_user, project_id);
   }
 
 }

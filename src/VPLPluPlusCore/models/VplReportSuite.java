@@ -15,12 +15,28 @@ import java.util.ArrayList;
 public class VplReportSuite {
 
   private final ArrayList<VplReport> singleReports;
+  private boolean is_compilation_error = false;
   public static final boolean ORDER_ASC = true;
   public static final boolean ORDER_DESC = false;
   public static final int ORDER_BY_GRADE = 1;
-
+  
   public VplReportSuite() {
     this.singleReports = new ArrayList();
+  }
+  
+  public static VplReportSuite getReportForCompilationError(){
+    VplReportSuite suite = new VplReportSuite();
+    suite.setCompilationError(true);
+    suite.addReport(VplReport.getReportForCompilationError());
+    return suite;
+  }
+  
+  public void setCompilationError(boolean isCompilationError){
+    this.is_compilation_error = true;
+  }
+  
+  public boolean getCompilationError(){
+    return this.is_compilation_error;
   }
 
   public VplReportSuite addReport(VplReport singleTestReport) {
@@ -34,6 +50,8 @@ public class VplReportSuite {
 
   public double getGrade() {
 
+    if(this.is_compilation_error == true) return 0;
+    
     double totalOfReports = this.singleReports.size();
     double totalGrade = 0;
 
