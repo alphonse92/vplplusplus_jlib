@@ -7,6 +7,10 @@ package VPLPluPlusCore.exporters;
 
 import VPLPluPlusCore.interfaces.IExporter;
 import VPLPluPlusCore.models.VplReportSuite;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.Formatter;
+import java.util.Locale;
 
 /**
  *
@@ -16,6 +20,7 @@ public class Printer implements IExporter {
 
   private VplReportSuite suite;
   private String[] args;
+
   public Printer(VplReportSuite suite) {
     this.suite = suite;
   }
@@ -27,9 +32,14 @@ public class Printer implements IExporter {
   }
 
   private void printGrade(double grade) {
-    System.out.print("Grade :=>> ");
-    System.out.printf("%.2f", grade);
-    System.out.println("");
+
+    DecimalFormat df2 = new DecimalFormat("#.##");
+    df2.setRoundingMode(RoundingMode.DOWN);
+    System.out.println("Grade :=>> " + df2.format(grade));
+    
+//    System.out.print("Grade :=>> ");
+//    System.out.printf("%.2f", grade);
+//    System.out.println("");
   }
 
   @Override
