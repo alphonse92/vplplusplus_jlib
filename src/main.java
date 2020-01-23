@@ -1,5 +1,6 @@
 
 import VPLPluPlusCore.APP;
+import VPLPluPlusCore.Exceptions.VplException;
 import VPLPluPlusCore.Exceptions.VplTestException;
 import VPLPluPlusCore.VplLoader;
 import VPLPluPlusCore.cli.VplCli;
@@ -92,12 +93,14 @@ public class main {
         loader.run(args, files);
       }
 
-    } catch ( ParseException
+    } catch (ParseException
             | MalformedURLException
             | ClassNotFoundException
             | URISyntaxException
             | NullPointerException ex) {
       logger.error(name, ex);
+    } catch (VplException ex) {
+      System.out.println(ex.getMessage());
     } catch (Exception ex) {
       logger.error(name, ex);
     }
