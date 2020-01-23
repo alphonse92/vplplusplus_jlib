@@ -92,8 +92,7 @@ public class main {
         loader.run(args, files);
       }
 
-    } catch (VplTestException
-            | ParseException
+    } catch ( ParseException
             | MalformedURLException
             | ClassNotFoundException
             | URISyntaxException

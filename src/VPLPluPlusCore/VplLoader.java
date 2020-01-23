@@ -71,8 +71,8 @@ public class VplLoader {
     // 4. load all exporters
     ArrayList<IExporter> exporters = new ArrayList();
     
-    exporters.add(new Printer(report).setArgs(args));
     exporters.add(new ApiExporter(report).setArgs(args));
+    exporters.add(new Printer(report).setArgs(args));
     
     // export all
     this.export(exporters);
@@ -80,7 +80,7 @@ public class VplLoader {
     return report;
   }
   
-  public void sendCompilationError(String [] args) throws ParseException, ApiExporterBadParameter{
+  public void sendCompilationError(String [] args) throws ParseException, ApiExporterBadParameter, VplException{
     ArrayList<IExporter> exporters = new ArrayList();
     VplReportSuite report = VplReportSuite.getReportForCompilationError();
     exporters.add(new Printer(report).setArgs(args));
@@ -94,14 +94,10 @@ public class VplLoader {
    *
    * @param exporters
    */
-  private void export(ArrayList<IExporter> exporters) {
+  private void export(ArrayList<IExporter> exporters) throws VplException {
 
     for (IExporter exporter : exporters) {
-      try {
-        exporter.export();
-      } catch (VplException ex) {
-        Logger.getLogger(VplLoader.class.getName()).log(Level.SEVERE, null, ex);
-      }
+      exporter.export();
     }
 
   }
