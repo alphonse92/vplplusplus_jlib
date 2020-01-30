@@ -81,9 +81,41 @@ public class CalculadoraTest{
 
 ```
 
+# Install 
+
+```sh
+./install.sh
+```
+
+## Install in your actual VPL Jail Execution Server
+
+If you want to use VPL ++ JLib Runner in your current jail execution server you need to install the JLib at first
+
+```sh
+./install_in_jail.sh
+```
+
+Then, you need to modify your vpl execution files of your activity and set the software properly.
+
+1. In your vpl_run add:
+```sh
+echo  'export VPL_PLUS_PLUS_PROJECT_ID="YOUR-PROJECT-ID-GOES-HERE"' >> vpl_environment.sh
+/usr/bin/vpl_run $(pwd)/
+```
+2. In your vpl_evaluate add:
+```sh
+echo  'export VPL_PLUS_PLUS_PROJECT_ID="YOUR-PROJECT-ID-GOES-HERE"' >> vpl_environment.sh
+/usr/bin/vpl $(pwd)/
+```
+
+# Requeriments
+
+To use the VPL ++  API, you need to generate a token for your JLib Runner. If you dont have it, please contact to the moodle administrator, or read the VPL ++ API documentation.
+
 # Ussage
 
-Vpl Jlib runs by the CLI.
+Vpl Jlib runs by the CLI. You can configure it ussing environment variables or parameters. The paremeters has more relevance than the environment variables.
+
 
 ## Enviroment variables
 
@@ -91,7 +123,7 @@ Vpl Jlib runs by the CLI.
 2. MOODLE_USER_ID: moodle user id of the class that are being tested by Jlib.
 3. API_URL: the url of VPL api
 4. API_TOKEN:  client JWT token for Vpl Jlib, see the administrator guide for the VPL api.
-
+5. VPL_PLUS_PLUS_PROJECT_ID: This parameter is required, it will be used if vpl cant compile the tests.
 
 ## Parameters
 
@@ -105,18 +137,18 @@ Vpl Jlib runs by the CLI.
 
 ### Development
 
-```shell
+```sh
 export ENV="development"
 export MOODLE_USER_ID=3
 export API_URL=http://localhost:1337/api/v1/project/test/case/summary/
+export VPL_PLUS_PLUS_PROJECT_ID=your-project-ID
 export API_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGM3M2Q4NmUxOTY2NGFkY2U2ZmI1ZTgiLCJpZCI6LTE1NzMzMzg1MDIzNTEsInVzZXJuYW1lIjoiYXBwIiwidHlwZSI6ImFwaV9jbGllbnQiLCJpYXQiOjE1NzMzMzg1MDJ9.Liim08kZkPPlT-v5yKW9-ywvWpCSmyBMns7i8vFbIIg
-
 java -jar VPLPlusPlus-jlib.jar
 ```
 
 ### Production
-
-```shell
+```sh
 export MOODLE_USER_ID=3
+export VPL_PLUS_PLUS_PROJECT_ID=your-project-ID
 java -jar VPLPlusPlus-jlib.jar -e "production" -f "./" -u "http://localhost:1337/api/v1/project/test/case/summary/" -t "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGM3M2Q4NmUxOTY2NGFkY2U2ZmI1ZTgiLCJpZCI6LTE1NzMzMzg1MDIzNTEsInVzZXJuYW1lIjoiYXBwIiwidHlwZSI6ImFwaV9jbGllbnQiLCJpYXQiOjE1NzMzMzg1MDJ9.Liim08kZkPPlT-v5yKW9-ywvWpCSmyBMns7i8vFbIIg"
 ```
